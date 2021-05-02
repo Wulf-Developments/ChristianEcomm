@@ -1,0 +1,24 @@
+{
+  "name": "ecommerce-site",
+  "version": "1.0.0",
+  "description": "MERN eCommerce site",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CNFishead/eCommerce-Page.git"
+  },
+  "author": "Austin Howard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CNFishead/eCommerce-Page/issues"
+  },
+  "homepage": "https://github.com/CNFishead/eCommerce-Page#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
+}
