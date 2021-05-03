@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MERN eCommerce site",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "server": "nodemon server/server",
     "client": "npm start --prefix client",
@@ -21,7 +22,9 @@
   "homepage": "https://github.com/CNFishead/eCommerce-Page#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.7"
   },
   "devDependencies": {
     "concurrently": "^6.0.2",
