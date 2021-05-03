@@ -1,5 +1,4 @@
-import mongoose, { mongo } from "mongoose";
-import { boolean } from "yargs";
+import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
