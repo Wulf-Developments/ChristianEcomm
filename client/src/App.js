@@ -8,6 +8,8 @@ import ProductScreen from "./Screens/ProductScreen";
 import { Container } from "react-bootstrap";
 import LoginScreen from "./Screens/LoginScreen";
 import RegisterScreen from "./Screens/RegisterScreen";
+import ProfileScreen from "./Screens/ProfileScreen";
+import ShippingScreen from "./Screens/ShippingScreen";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
         <Header />
         <Container>
           <main className="py-3">
+            <Route path="/shipping" component={ShippingScreen} />
+            <Route path="/profile" component={ProfileScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/login" component={LoginScreen} />
             <Route path="/product/:id" component={ProductScreen} />
