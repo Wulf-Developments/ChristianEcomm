@@ -23,4 +23,8 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getProducts, getProductById };
+const checkPrices = asyncHandler(async (id) => {
+  const product = await Product.findById(id);
+  return product;
+});
+export { getProducts, getProductById, checkPrices };
