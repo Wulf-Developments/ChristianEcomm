@@ -5,50 +5,58 @@ import {
   productListReducer,
   productDetailsReducer,
   productDeleteReducer,
+  productCreateReducer,
+  productUpdateReducer,
+  productReviewCreateReducer,
+  productTopRatedReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
-  userLogingReducer,
+  userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
   userListReducer,
-  userDeleteReduce,
+  userDeleteReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
 import {
   orderCreateReducer,
   orderDetailsReducer,
-  orderListMyReducer,
   orderPayReducer,
+  orderDeliverReducer,
+  orderListMyReducer,
+  orderListReducer,
 } from "./reducers/orderReducers";
 
-//create combine reducers, this is were all the reducers go.
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productReviewCreate: productReviewCreateReducer,
+  productTopRated: productTopRatedReducer,
   cart: cartReducer,
-  userLogin: userLogingReducer,
+  userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   userList: userListReducer,
-  userDelete: userDeleteReduce,
+  userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
+  orderList: orderListReducer,
 });
 
-//Fetch Cart items from localStorage.
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
-//Fetch UserInformation from localStorage
-//*This may get changed in the future to sessionStorage for more security on public web-browsing
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
@@ -57,7 +65,6 @@ const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
   : {};
 
-//init state
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
@@ -66,10 +73,8 @@ const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 };
 
-//init middleware
 const middleware = [thunk];
 
-//create store
 const store = createStore(
   reducer,
   initialState,

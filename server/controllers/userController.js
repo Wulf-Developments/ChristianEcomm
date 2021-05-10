@@ -125,7 +125,6 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User not Found");
   }
-  res.json(users);
 });
 
 //@desc get user by ID.
