@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Rating from "./Rating";
+import Meta from './Meta'
 
 const Product = ({ product }) => {
   return (
+    <>
+    
     <Card className="my-3 p-3 rounded">
       <Link to={`/product/${product._id}`}>
         <Card.Img src={product.image} variant="top" />
@@ -24,6 +27,7 @@ const Product = ({ product }) => {
         <Card.Text as="h3">${product.price}</Card.Text>
       </Card.Body>
     </Card>
+    </>
   );
 };
 
