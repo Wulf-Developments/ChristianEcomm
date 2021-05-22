@@ -6,6 +6,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { listMyOrders } from "../actions/orderActions";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -22,9 +23,11 @@ const ProfileScreen = ({ location, history }) => {
 
   const { success } = useSelector((state) => state.userUpdateProfile);
 
-  const { loading: loadingOrders, error: errorOrders, orders } = useSelector(
-    (state) => state.orderListMy
-  );
+  const {
+    loading: loadingOrders,
+    error: errorOrders,
+    orders,
+  } = useSelector((state) => state.orderListMy);
 
   useEffect(() => {
     //Will want to check if the User is logged in, if not redirect
@@ -32,9 +35,10 @@ const ProfileScreen = ({ location, history }) => {
     if (!userInfo) {
       history.push(`/login`);
     } else {
-      if (!user.name) {
+      if (!user.name || !user.name || success) {
         //Here the route will connect to /api/users/profile instead of
         // /api/users/{id}
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
         dispatch(listMyOrders());
       } else {
@@ -43,7 +47,7 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email);
       }
     }
-  }, [history, userInfo, dispatch, user]);
+  }, [history, userInfo, dispatch, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();

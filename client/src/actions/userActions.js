@@ -174,10 +174,13 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       type: USER_UPDATE_PROFILE_SUCCESS,
       payload: data,
     });
+    //Resends the information for login
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
+
+    //Changes the localStorage information to update the name if information changes.
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     const message =
