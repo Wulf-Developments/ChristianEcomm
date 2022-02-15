@@ -1,4 +1,6 @@
 import express from "express";
+import { ForgotPassword } from "../controllers/Auth/ForgotPassword.js";
+import { ResetPassword } from "../controllers/Auth/ResetPassword.js";
 import {
   authUser,
   deleteUser,
@@ -29,4 +31,7 @@ router
   .delete(protect, admin, deleteUser)
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser);
+
+router.route("/forgotpassword").post(ForgotPassword);
+router.route("/resetpassword/:resettoken").put(ResetPassword);
 export default router;

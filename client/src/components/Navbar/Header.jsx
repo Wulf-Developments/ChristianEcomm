@@ -1,15 +1,16 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../actions/userActions";
-import SearchBox from "./SearchBox";
+import { logout } from "../../actions/userActions";
+import SearchBox from "../SearchBox";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.userLogin);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -17,10 +18,22 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" expand="lg" variant="dark" collapseOnSelect>
+      <Navbar
+        expand="lg"
+        variant="dark"
+        collapseOnSelect
+        style={{ backgroundColor: "rgb(99,129,124)" }}
+      >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>E-Commerce Page</Navbar.Brand>
+            <Navbar.Brand>
+              <span className="darkslategray-txt">
+                <Image
+                  src="/images/ChristianEcommLogo.png"
+                  style={{ height: "80px" }}
+                />
+              </span>
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -28,13 +41,26 @@ const Header = () => {
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Cart
+                  <span className="">
+                    <i className="fas fa-shopping-cart" /> Cart{" "}
+                    {cartItems.length > 0 && (
+                      <p style={{ display: "inline" }}>
+                        ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                      </p>
+                    )}
+                  </span>
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
+                <NavDropdown
+                  title={userInfo.name}
+                  id="username"
+                  className="dimgray-txt"
+                >
                   <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <span>Profile</span>
+                    </NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout

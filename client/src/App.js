@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Header from "./components/Header";
+import Header from "./components/Navbar/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./Screens/HomeScreen";
 import ProductScreen from "./Screens/ProductScreen";
@@ -18,10 +18,21 @@ import UserEditScreen from "./Screens/UserEditScreen";
 import ProductListScreen from "./Screens/ProductListScreen";
 import ProductEditScreen from "./Screens/ProductEditScreen";
 import OrderListScreen from "./Screens/OrderListScreen";
+import Reset from "./Screens/Reset";
+import ResetPassword from "./Screens/ResetPassword";
+import Support from "./components/Forms/Support";
+import Alert from "./components/Alert";
+import { useSelector } from "react-redux";
+import setAuthToken from "./utils/setAuthToken";
 
 const App = () => {
+  const { userInfo } = useSelector((state) => state.userLogin);
+  if (userInfo) {
+    setAuthToken(userInfo.token);
+  }
   return (
     <Router>
+      <Alert />
       <Header />
       <main className="py-3">
         <Container>
@@ -36,6 +47,12 @@ const App = () => {
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+          <Route path="/resetpassword" component={Reset} />
+          <Route path="/support" component={Support} />
+          <Route
+            path="/auth/resetpassword/:resettoken"
+            component={ResetPassword}
+          />
           <Route
             path="/admin/productlist"
             component={ProductListScreen}

@@ -35,7 +35,7 @@ const ProfileScreen = ({ location, history }) => {
     if (!userInfo) {
       history.push(`/login`);
     } else {
-      if (!user.name || !user.name || success) {
+      if (!user || !user.name || success) {
         //Here the route will connect to /api/users/profile instead of
         // /api/users/{id}
         dispatch({ type: USER_UPDATE_PROFILE_RESET });

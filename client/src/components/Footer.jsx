@@ -4,9 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 const Footer = () => {
   return (
     <footer>
-      <Container>
+      <Container fluid>
         <Row>
-          <Col className="text-center py-3">
+          <Col className="text-center py-3 black-bg dimgray-txt">
             Copyright &copy; WulfDevelopments
           </Col>
         </Row>

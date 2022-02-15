@@ -1,5 +1,6 @@
 main {
   min-height: 90vh;
+  background-color: rgb(230, 230, 230);
 }
 
 h3 {
@@ -8,6 +9,14 @@ h3 {
 
 .rating span {
   margin: 0.1rem;
+}
+
+.alert-wrapper {
+  position: fixed;
+  top: 4rem;
+  right: 2rem;
+  display: inline-block;
+  z-index: 3;
 }
 
 h1 {
@@ -21,4 +30,38 @@ h2 {
 
 .bold {
   font-weight: bold;
+}
+
+.slategray-bg {
+  background-color: rgb(99, 129, 124);
+}
+.slategray-txt {
+  color: rgb(99, 129, 124);
+}
+.black-bg {
+  background-color: #0c141b;
+}
+.black-txt {
+  color: #0c141b;
+}
+
+.darkgray-bg {
+  background-color: rgb(160, 181, 162);
+}
+.darkgray-txt {
+  color: rgb(160, 181, 162);
+}
+
+.darkslategray-bg {
+  background-color: rgb(63, 62, 64);
+}
+.darkslategray-txt {
+  color: rgb(63, 62, 64);
+}
+
+.dimgray-bg {
+  background-color: rgb(122, 98, 93);
+}
+.dimgray-txt {
+  color: rgb(122, 98, 93);
 }

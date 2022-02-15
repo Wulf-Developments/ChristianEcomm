@@ -1,0 +1,15 @@
+.carousel {
+  text-align: center;
+  background-color: rgb(122, 98, 93);
+  min-height: 400px;
+  max-height: 400px;
+  width: 75%;
+  margin: 0 auto;
+}
+.carousel h2 {
+  color: rgb(143, 142, 142);
+}
+.carousel-image {
+  max-height: 400px;
+  min-height: 400px;
+}

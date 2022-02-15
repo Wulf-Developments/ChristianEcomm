@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { listProductDetails, updateProduct } from "../actions/product";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
+import { setAlert } from "../actions/alert";
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
@@ -59,7 +60,7 @@ const ProductEditScreen = ({ match, history }) => {
     // files we only want the first file.
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
     //Triggers the Loader component
     setUploading(true);
 
@@ -70,7 +71,6 @@ const ProductEditScreen = ({ match, history }) => {
           // Has to have the multipart/form-data!
           // Also only Admins can upload a file, need token
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
@@ -78,14 +78,19 @@ const ProductEditScreen = ({ match, history }) => {
 
       //Once the post request is finished, setImage to data, setUploading to false, to remove Loader
       //Component
-      setImage(data);
+      setImage(data.data);
       setUploading(false);
+      dispatch(setAlert(`Image uploaded successfully`, "success"));
     } catch (error) {
       console.error(error);
       setUploading(false);
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch(setAlert(`Image did not upload: ${message}`, "danger"));
     }
   };
-
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(

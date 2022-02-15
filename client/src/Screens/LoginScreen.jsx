@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -61,6 +61,11 @@ const LoginScreen = ({ location, history }) => {
           Sign-In
         </Button>
       </Form>
+      <Container style={{ paddingTop: "5%", textAlign: "center" }}>
+        <Link style={{ textDecoration: "none" }} to="/resetpassword">
+          <span>Forgot Password</span>
+        </Link>
+      </Container>
       <Row className="py-3">
         <Col>
           New Customer?{" "}
