@@ -148,7 +148,7 @@ const getTopProducts = asyncHandler(async (req, res) => {
   //Sorts in ascending order. gets 3 products, can change number to get more.
   const products = await Product.find({}).sort({ rating: -1 }).limit(3);
 
-  res.json(products);
+  res.status(200).json(products);
 });
 
 export {

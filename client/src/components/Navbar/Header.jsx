@@ -24,7 +24,7 @@ const Header = () => {
         collapseOnSelect
         style={{ backgroundColor: "rgb(99,129,124)" }}
       >
-        <Container>
+        <Container fluid>
           <LinkContainer to="/">
             <Navbar.Brand>
               <span className="darkslategray-txt">

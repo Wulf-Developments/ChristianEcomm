@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
+import Product from "../models/productModel.js";
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -69,7 +70,19 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       update_time: req.body.update_time,
       email_address: req.body.payer.email_address,
     };
-
+    // Need to remove items out of stock so people cant buy objects that arent available.
+    // Get the array of products from the order.
+    const products = order.orderItems;
+    // we need to loop over the array of products and remove from stock the qty, of each product
+    try {
+      products.map(async (product) => {
+        const productToBeUpdated = await Product.findById(product.product);
+        productToBeUpdated.countInStock -= product.qty;
+        productToBeUpdated.save();
+      });
+    } catch (error) {
+      res.status(400).json({ message: "Problem updating Quantity Stock" });
+    }
     const updatedOrder = await order.save();
 
     res.json(updatedOrder);

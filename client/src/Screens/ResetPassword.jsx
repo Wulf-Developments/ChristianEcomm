@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Form, Button, FloatingLabel, Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Form, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
@@ -13,12 +13,11 @@ import Meta from "../components/Meta";
 
 import { setAlert } from "../actions/alert";
 
-const ResetPassword = () => {
+const ResetPassword = ({ history }) => {
   // get param token
   const { resettoken } = useParams();
   const dispatch = useDispatch();
   // State
-  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
   // eslint-disable-next-line
@@ -30,9 +29,9 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      history.push("/");
     }
-  }, [navigate, userInfo]);
+  }, [history, userInfo]);
 
   // submit handler
   const submitHandler = async (e) => {
@@ -62,36 +61,24 @@ const ResetPassword = () => {
         <h1 style={{ color: "white" }}>Enter New Password</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="password">
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Enter New Password"
-              className="mb-3"
-            >
-              <Form.Control
-                type="password"
-                value={password}
-                placeholder="New Password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              ></Form.Control>
-            </FloatingLabel>
+            <Form.Control
+              type="password"
+              value={password}
+              placeholder="New Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            ></Form.Control>
           </Form.Group>
           <Form.Group controlId="passConfirm">
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Confirm New Password"
-              className="mb-3"
-            >
-              <Form.Control
-                type="password"
-                value={passConfirm}
-                placeholder="New Password"
-                onChange={(e) => {
-                  setPassConfirm(e.target.value);
-                }}
-              ></Form.Control>
-            </FloatingLabel>
+            <Form.Control
+              type="password"
+              value={passConfirm}
+              placeholder="New Password"
+              onChange={(e) => {
+                setPassConfirm(e.target.value);
+              }}
+            ></Form.Control>
           </Form.Group>
           {loading ? (
             <Loader />

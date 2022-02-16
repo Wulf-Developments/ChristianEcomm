@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Rating from "../Rating";
-import Meta from "../Meta";
 
 import "./index.css";
 
@@ -15,7 +14,6 @@ const Product = ({ product }) => {
             src={product.image}
             variant="top"
             className="product-image"
-            
           />
         </Link>
         <Card.Body>

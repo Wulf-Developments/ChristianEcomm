@@ -1,7 +1,7 @@
 {
-  "name": "ecommerce-site",
+  "name": "the crown of life products",
   "version": "1.0.0",
-  "description": "MERN eCommerce site",
+  "description": "Simple e-commerce resell",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -12,7 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "data:import": "node server/seeder",
     "data:destroy": "node server/seeder -d",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "post-install": "npm install && npm install --prefix client"
   },
   "repository": {
     "type": "git",

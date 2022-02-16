@@ -24,6 +24,7 @@ import Support from "./components/Forms/Support";
 import Alert from "./components/Alert";
 import { useSelector } from "react-redux";
 import setAuthToken from "./utils/setAuthToken";
+import PrivateRoute from "./components/Routing/PrivateRoute";
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -36,35 +37,41 @@ const App = () => {
       <Header />
       <main className="py-3">
         <Container>
-          <Route path="/order/:id" component={OrderScreen} />
-          <Route path="/shipping" component={ShippingScreen} />
-          <Route path="/payment" component={PaymentScreen} />
-          <Route path="/placeorder" component={PlaceOrderScreen} />
+          <PrivateRoute path="/order/:id" component={OrderScreen} />
+          <PrivateRoute path="/shipping" component={ShippingScreen} />
+          <PrivateRoute path="/payment" component={PaymentScreen} />
+          <PrivateRoute path="/placeorder" component={PlaceOrderScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
-          <Route path="/profile" component={ProfileScreen} />
+          <PrivateRoute path="/profile" component={ProfileScreen} />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
-          <Route path="/admin/userlist" component={UserListScreen} />
-          <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+          <PrivateRoute path="/admin/userlist" component={UserListScreen} />
+          <PrivateRoute
+            path="/admin/user/:id/edit"
+            component={UserEditScreen}
+          />
           <Route path="/resetpassword" component={Reset} />
           <Route path="/support" component={Support} />
           <Route
             path="/auth/resetpassword/:resettoken"
             component={ResetPassword}
           />
-          <Route
+          <PrivateRoute
             path="/admin/productlist"
             component={ProductListScreen}
             exact
           />
-          <Route
+          <PrivateRoute
             path="/admin/productlist/:pageNumber"
             component={ProductListScreen}
             exact
           />
-          <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
-          <Route path="/admin/orderlist" component={OrderListScreen} />
+          <PrivateRoute
+            path="/admin/product/:id/edit"
+            component={ProductEditScreen}
+          />
+          <PrivateRoute path="/admin/orderlist" component={OrderListScreen} />
           <Route path="/search/:keyword" component={HomeScreen} exact />
           <Route path="/page/:pageNumber" component={HomeScreen} exact />
           <Route
