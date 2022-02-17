@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listOrders } from "../actions/orderActions";
+import Meta from "../components/Meta";
 
 const OrderListScreen = ({ history, match, location }) => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const OrderListScreen = ({ history, match, location }) => {
 
   return (
     <>
+      <Meta title={`Orders | Page ${pageNumber}`} />
       <h1>Orders</h1>
       <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
         <InputGroup>

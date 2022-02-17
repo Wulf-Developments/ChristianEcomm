@@ -7,6 +7,7 @@ import Loader from "../components/Loader";
 import { listProducts, deleteProduct, createProduct } from "../actions/product";
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 import Paginate from "../components/Paginate";
+import Meta from "../components/Meta";
 
 const ProductListScreen = ({ history, match }) => {
   // pulls the pageNumber and Keyword search params
@@ -76,6 +77,7 @@ const ProductListScreen = ({ history, match }) => {
   };
   return (
     <>
+      <Meta title={`Products | Page ${pageNumber}`} />
       <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
         <InputGroup>
           <Form.Control

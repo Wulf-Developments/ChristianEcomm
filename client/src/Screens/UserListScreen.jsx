@@ -77,7 +77,7 @@ const UserListScreen = ({ history, match, location }) => {
 
   return (
     <>
-      <Meta title={`Admin | Users`} />
+      <Meta title={`Users | Page ${pageNumber}`} />
       <Container style={{ fontFamily: "sans-serif" }}>
         <h1>Users</h1>
         <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
