@@ -24,7 +24,7 @@ const PlaceOrderScreen = ({ history }) => {
     minimumFractionDigits: 2,
   });
   cart.shippingPrice = cart.itemsPrice > 20 ? 0 : 5;
-  cart.taxPrice = 0.975 * cart.itemsPrice;
+  cart.taxPrice = 0.0975 * cart.itemsPrice;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const { order, success, error } = useSelector((state) => state.orderCreate);
