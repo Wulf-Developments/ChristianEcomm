@@ -2,15 +2,17 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import colors from "colors";
-import productRoutes from "./routes/productRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import orderRoutes from "./routes/orderRoutes.js";
-import uploadRoutes from "./routes/uploadRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import path from "path";
 import morgan from "morgan";
 import fileUpload from "express-fileupload";
 
+import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
+import supportRoutes from "./routes/supportRoutes.js";
+import reportRoutes from "./routes/AdminRoutes/reportRoutes.js";
 dotenv.config();
 
 connectDB();
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(fileUpload());
 
 app.use("/api/products", productRoutes);
+app.use("/api/admin/reports", reportRoutes);
+app.use("/api/support", supportRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);

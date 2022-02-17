@@ -1,6 +1,8 @@
 import express from "express";
+import { activateAccount } from "../controllers/Admin/activateAccount.js";
 import { ForgotPassword } from "../controllers/Auth/ForgotPassword.js";
 import { ResetPassword } from "../controllers/Auth/ResetPassword.js";
+import { removeAccount } from "../controllers/User/removeAccount.js";
 import {
   authUser,
   deleteUser,
@@ -31,7 +33,8 @@ router
   .delete(protect, admin, deleteUser)
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser);
-
+router.route("/:id/delete").put(removeAccount);
+router.route("/:id/activate").put(protect, admin, activateAccount);
 router.route("/forgotpassword").post(ForgotPassword);
 router.route("/resetpassword/:resettoken").put(ResetPassword);
 export default router;

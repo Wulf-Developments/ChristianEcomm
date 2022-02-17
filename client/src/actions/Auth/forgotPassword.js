@@ -5,7 +5,7 @@ export const forgotPassword = (email) => async (dispatch) => {
   try {
     await axios({
       method: "POST",
-      url: "/api/auth/forgotpassword",
+      url: "/api/users/forgotpassword",
       data: { email },
     });
     dispatch(setAlert(`Email has been sent`, "success"));

@@ -19,11 +19,11 @@ const addOrderItems = asyncHandler(async (req, res) => {
   if (orderItems && orderItems.length === 0) {
     res.status(400);
     throw new Error("No order items");
-    return;
   } else {
     const order = new Order({
       orderItems,
       user: req.user._id,
+      user_name: req.user.name,
       shippingAddress,
       paymentMethod,
       itemsPrice,
@@ -115,16 +115,52 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/myorders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id });
-  res.json(orders);
+  try {
+    const pageSize = 10;
+    const page = Number(req.query.pageNumber) || 1;
+    const count = await Order.countDocuments({
+      user: req.user._id,
+    });
+    const orders = await Order.find({ user: req.user._id })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
+      .sort({ createdAt: -1 });
+    res.json({ orders, page, pages: Math.ceil(count / pageSize) });
+  } catch (error) {
+    res.status(500).json({
+      message:
+        "Problem Retrieving Your Orders from the database, please try again later",
+    });
+  }
 });
 
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({}).populate("user", "id name");
-  res.json(orders);
+  try {
+    const pageSize = 10;
+    const page = Number(req.query.pageNumber) || 1;
+    const keyword = req.query.keyword
+      ? {
+          user_name: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+    const count = await Order.countDocuments({ ...keyword });
+    const orders = await Order.find({ ...keyword })
+      .populate("user", "id name email")
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
+      .sort({ createdAt: -1 });
+    res.json({ orders, page, pages: Math.ceil(count / pageSize) });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Problem retrieving orders from the server" });
+  }
 });
 
 export {

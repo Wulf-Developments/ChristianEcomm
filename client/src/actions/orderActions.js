@@ -185,23 +185,13 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     });
   }
 };
-export const listMyOrders = () => async (dispatch, getState) => {
+export const listMyOrders = () => async (dispatch) => {
   try {
     dispatch({
       type: ORDER_LIST_MY_REQUEST,
     });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/api/orders/myorders`, config);
+    const { data } = await axios.get(`/api/orders/myorders`);
 
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
@@ -222,28 +212,20 @@ export const listMyOrders = () => async (dispatch, getState) => {
   }
 };
 
-export const listOrders = () => async (dispatch, getState) => {
+export const listOrders = (keyword, pageNumber) => async (dispatch) => {
   try {
     dispatch({
       type: ORDER_LIST_REQUEST,
     });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/api/orders`, config);
-
+    const { data } = await axios.get(
+      `/api/orders?keyword=${keyword}&pageNumber=${pageNumber}`
+    );
     dispatch({
       type: ORDER_LIST_SUCCESS,
       payload: data,
     });
+    console.log(data);
   } catch (error) {
     const message =
       error.response && error.response.data.message

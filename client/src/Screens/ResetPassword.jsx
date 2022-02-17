@@ -40,7 +40,7 @@ const ResetPassword = ({ history }) => {
       if (password === passConfirm) {
         const data = await axios({
           method: "PUT",
-          url: `/api/auth/resetpassword/${resettoken}`,
+          url: `/api/users/resetpassword/${resettoken}`,
           data: { password },
         });
         dispatch({
@@ -56,7 +56,7 @@ const ResetPassword = ({ history }) => {
   };
   return (
     <Container>
-      <Meta title={`Honey Do | New Password`} />
+      <Meta title={`New Password`} />
       <FormContainer>
         <h1 style={{ color: "white" }}>Enter New Password</h1>
         <Form onSubmit={submitHandler}>

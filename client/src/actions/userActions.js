@@ -26,6 +26,7 @@ import {
   USER_UPDATE_REQUEST,
 } from "../constants/userConstants";
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
+import { setAlert } from "./alert";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -197,23 +198,14 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
-export const listUsers = () => async (dispatch, getState) => {
+export const listUsers = (keyword, pageNumber) => async (dispatch) => {
   try {
     dispatch({
       type: USER_LIST_REQUEST,
     });
-
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/api/users`, config);
+    const { data } = await axios.get(
+      `/api/users?keyword=${keyword}&pageNumber=${pageNumber}`
+    );
 
     dispatch({
       type: USER_LIST_SUCCESS,
@@ -300,6 +292,80 @@ export const updateUser = (user) => async (dispatch, getState) => {
     if (message === "Not authorized, token failed") {
       dispatch(logout());
     }
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const inactive = (id, isAdmin) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+    const { data } = await axios.put(`/api/users/${id}/delete`);
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+      payload: data,
+    });
+    if (!isAdmin) {
+      dispatch(logout());
+    }
+    dispatch(setAlert(`You have made this account inactive`, "success"));
+    //Changes the localStorage information to update the name if information changes.
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch(setAlert(message, "danger"));
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload: message,
+    });
+  }
+};
+export const activate = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(`/api/users/${id}/activate`, config);
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+      payload: data,
+    });
+    dispatch(setAlert(`You've Reactivated account: ${id}`, "success"));
+    //Changes the localStorage information to update the name if information changes.
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch(setAlert(message, "danger"));
     dispatch({
       type: USER_UPDATE_FAIL,
       payload: message,

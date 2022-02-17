@@ -21,7 +21,7 @@ const Reset = () => {
   };
   return (
     <Container>
-      <Meta title={`Honey Do | Password Reset`} />
+      <Meta title={`Password Reset`} />
       <FormContainer>
         <h1>Reset Account Password</h1>
         <Form onSubmit={submitHandler}>

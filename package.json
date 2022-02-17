@@ -1,7 +1,7 @@
 {
-  "name": "the crown of life products",
+  "name": "the-crown-of-life-products",
   "version": "1.0.0",
-  "description": "Simple e-commerce resell",
+  "description": "Simple e-commerce resell site for christian objects",
   "main": "server.js",
   "type": "module",
   "scripts": {

@@ -58,11 +58,13 @@ const HomeScreen = ({ match }) => {
               );
             })}
           </Row>
-          <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ""}
-          />
+          <Row style={{ justifyContent: "center" }}>
+            <Paginate
+              pages={pages}
+              page={page}
+              keyword={keyword ? keyword : ""}
+            />
+          </Row>
         </>
       )}
     </>
