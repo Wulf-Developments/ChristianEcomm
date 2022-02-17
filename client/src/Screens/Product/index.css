@@ -1,0 +1,6 @@
+.product-image-container {
+  max-height: 600px;
+}
+.product-image-container img {
+  height: 100%;
+}

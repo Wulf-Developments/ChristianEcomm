@@ -9,13 +9,20 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import Rating from "../components/Rating";
+import Rating from "../../components/Rating";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails, createProductReview } from "../actions/product";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
-import Meta from "../components/Meta";
+
+// actions/constants
+import { listProductDetails, createProductReview } from "../../actions/product";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../../constants/productConstants";
+
+// components
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import Meta from "../../components/Meta";
+
+// css
+import "./index.css";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -47,11 +54,10 @@ const ProductScreen = ({ history, match }) => {
     e.preventDefault();
     dispatch(createProductReview(match.params.id, { rating, comment }));
   };
-
   return (
     <>
-      <Meta title={`E-Commerce | ${product.name}`} />
-      <Link className="btn btn-dark my-3" to="/">
+      <Meta title={`Crown of Life Products | ${product.name}`} />
+      <Link className="btn btn-dark my-3" to={`/`}>
         Go back
       </Link>
       {loading ? (
@@ -61,7 +67,7 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <>
           <Row>
-            <Col md={6}>
+            <Col md={6} className="product-image-container">
               <Image src={product.image} alt={product.name} fluid />
             </Col>
             <Col md={3}>

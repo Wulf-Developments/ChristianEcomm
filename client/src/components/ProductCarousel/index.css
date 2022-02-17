@@ -13,3 +13,15 @@
   max-height: 400px;
   min-height: 400px;
 }
+
+/* mobile responsiveness */
+@media (max-width: 280px) {
+  .carousel {
+    max-height: 325px;
+    min-height: 325px;
+  }
+  .carousel-image {
+    max-height: 325px;
+    min-height: 325px;
+  }
+}

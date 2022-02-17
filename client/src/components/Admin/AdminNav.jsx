@@ -1,23 +1,22 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link } from "react-router-dom";
 
 const AdminNav = () => {
   return (
     <Container fluid>
-      <Row style={{ textAlign: "center", margin: "0 0 5%" }}>
-        <Col>
+      <Row style={{ textAlign: "center", margin: "0 0 2%" }}>
+        <Col style={{ padding: "2% 0" }}>
           <LinkContainer to="/admin/userlist">
             <Button variant="light">Users</Button>
           </LinkContainer>
         </Col>
-        <Col>
+        <Col style={{ padding: "2% 0" }}>
           <LinkContainer to="/admin/orderlist">
             <Button variant="light">Orders</Button>
           </LinkContainer>
         </Col>
-        <Col>
+        <Col style={{ padding: "2% 0" }}>
           <LinkContainer to="/admin/productlist">
             <Button variant="light">Products</Button>
           </LinkContainer>

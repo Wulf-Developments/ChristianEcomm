@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Table, Button, Row, Col } from "react-bootstrap";
+import { Table, Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -9,9 +9,11 @@ import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 import Paginate from "../components/Paginate";
 
 const ProductListScreen = ({ history, match }) => {
+  // pulls the pageNumber and Keyword search params
+  const keyword = match.params.keyword || "";
   const pageNumber = match.params.pageNumber || 1;
-
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
 
   const { loading, error, products, page, pages } = useSelector(
     (state) => state.productList
@@ -32,14 +34,14 @@ const ProductListScreen = ({ history, match }) => {
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
-    if (!userInfo || !userInfo.isAdmin) {
+    if (!userInfo.isAdmin) {
       history.push("/login");
     }
 
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts("", pageNumber));
+      dispatch(listProducts(keyword, pageNumber));
     }
   }, [
     dispatch,
@@ -48,6 +50,7 @@ const ProductListScreen = ({ history, match }) => {
     successDelete,
     successCreate,
     createdProduct,
+    keyword,
     pageNumber,
   ]);
 
@@ -61,8 +64,35 @@ const ProductListScreen = ({ history, match }) => {
     dispatch(createProduct());
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      history.push(
+        `/admin/productlist/search/${search}/page/${pageNumber || 1}`
+      );
+    } else {
+      history.push("/admin/productlist");
+    }
+  };
   return (
     <>
+      <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
+        <InputGroup>
+          <Form.Control
+            type="text"
+            name="q"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search Products"
+            className="mr-sm-2 ml-sm-5"
+          ></Form.Control>
+          <Button type="submit" variant="outline-success" className="p-2">
+            Search
+          </Button>
+        </InputGroup>
+        <Form.Text style={{ textAlign: "center" }}>
+          Currently you can only search based off a Product Name.
+        </Form.Text>
+      </Form>
       <Row className="align-items-center">
         <Col>
           <h1>Products</h1>
@@ -120,7 +150,14 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
-          <Paginate pages={pages} page={page} isAdmin={true} />
+          <Row style={{ justifyContent: "center" }}>
+            <Paginate
+              pages={pages}
+              page={page}
+              isAdmin={true}
+              keyword={keyword}
+            />
+          </Row>
         </>
       )}
     </>

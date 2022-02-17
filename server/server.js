@@ -6,6 +6,10 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import path from "path";
 import morgan from "morgan";
 import fileUpload from "express-fileupload";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
+import hpp from "hpp";
+import cors from "cors";
 
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -25,6 +29,15 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 app.use(fileUpload());
+app.use(mongoSanitize());
+// Set Security headers
+// app.use(helmet());
+// prevent XSS attacks
+app.use(xss());
+// Prevent hpp pollution
+app.use(hpp());
+// CORS
+app.use(cors());
 
 app.use("/api/products", productRoutes);
 app.use("/api/admin/reports", reportRoutes);

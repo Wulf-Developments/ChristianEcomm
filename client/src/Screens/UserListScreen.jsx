@@ -16,7 +16,6 @@ import {
   inactive,
   listUsers,
 } from "../actions/userActions";
-import { useParams } from "react-router-dom";
 import Meta from "../components/Meta";
 
 const UserListScreen = ({ history, match, location }) => {

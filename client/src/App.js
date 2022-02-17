@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import Header from "./components/Navbar/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./Screens/HomeScreen";
-import ProductScreen from "./Screens/ProductScreen";
+import ProductScreen from "./Screens/Product/ProductScreen";
 import CartScreen from "./Screens/CartScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import RegisterScreen from "./Screens/RegisterScreen";
@@ -13,10 +13,6 @@ import ShippingScreen from "./Screens/ShippingScreen";
 import PaymentScreen from "./Screens/PaymentScreen";
 import PlaceOrderScreen from "./Screens/PlaceOrderScreen";
 import OrderScreen from "./Screens/OrderScreen";
-import UserListScreen from "./Screens/UserListScreen";
-import UserEditScreen from "./Screens/UserEditScreen";
-import ProductListScreen from "./Screens/ProductListScreen";
-import ProductEditScreen from "./Screens/ProductEditScreen";
 import Reset from "./Screens/Reset";
 import ResetPassword from "./Screens/ResetPassword";
 import Support from "./components/Forms/Support";
@@ -26,6 +22,7 @@ import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/Routing/PrivateRoute";
 import AdminOrderListRoutes from "./components/Routes/AdminOrderListRoutes";
 import AdminUserListRoutes from "./components/Routes/AdminUserListRoutes";
+import AdminProductListRoutes from "./components/Routes/AdminProductListRoutes";
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -40,6 +37,7 @@ const App = () => {
         <Container>
           <Route component={AdminOrderListRoutes} />
           <Route component={AdminUserListRoutes} />
+          <Route component={AdminProductListRoutes} />
           <PrivateRoute path="/order/:id" component={OrderScreen} />
           <PrivateRoute path="/shipping" component={ShippingScreen} />
           <PrivateRoute path="/payment" component={PaymentScreen} />
@@ -55,20 +53,6 @@ const App = () => {
           <Route
             path="/auth/resetpassword/:resettoken"
             component={ResetPassword}
-          />
-          <PrivateRoute
-            path="/admin/productlist"
-            component={ProductListScreen}
-            exact
-          />
-          <PrivateRoute
-            path="/admin/productlist/:pageNumber"
-            component={ProductListScreen}
-            exact
-          />
-          <PrivateRoute
-            path="/admin/product/:id/edit"
-            component={ProductEditScreen}
           />
 
           <Route path="/search/:keyword" component={HomeScreen} exact />
