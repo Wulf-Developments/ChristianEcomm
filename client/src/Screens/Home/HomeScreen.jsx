@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import Product from "../components/Product/Product";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Paginate from "../components/Paginate";
-import ProductCarousel from "../components/ProductCarousel/ProductCarousel";
-import Meta from "../components/Meta";
-import { listProducts } from "../actions/product";
+import Product from "../../components/Product/Product";
+import Loader from "../../components/Loader";
+import Paginate from "../../components/Paginate";
+import ProductCarousel from "../../components/ProductCarousel/ProductCarousel";
+import Meta from "../../components/Meta";
+import { listProducts } from "../../actions/Product/listProducts";
+import "./Home.css";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -17,7 +17,7 @@ const HomeScreen = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  const { loading, error, products, page, pages } = useSelector(
+  const { loading, products, page, pages } = useSelector(
     (state) => state.productList
   );
 
@@ -38,11 +38,9 @@ const HomeScreen = ({ match }) => {
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Row>
+          <Row className="products-listing">
             {products.map((product) => {
               return (
                 <Col

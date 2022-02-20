@@ -1,15 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Switch } from "react-router-dom";
-import OrderListScreen from "../../Screens/OrderListScreen";
+import OrderListScreen from "../../Screens/Admin/OrderListScreen";
 import PrivateRoute from "../Routing/PrivateRoute";
-import AdminNav from "../Admin/AdminNav";
 
 const AdminOrderListRoutes = () => {
-  const { userInfo } = useSelector((state) => state.userLogin);
   return (
     <>
-      {userInfo && userInfo.isAdmin && <AdminNav />}
       <Switch>
         {/* 
             Take special care to layer the routes that it wont always go to 

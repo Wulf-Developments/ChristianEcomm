@@ -9,19 +9,18 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import { listOrders } from "../actions/orderActions";
-import Meta from "../components/Meta";
+import Message from "../../components/Message";
+import Loader from "../../components/Loader";
+import Meta from "../../components/Meta";
+import { getCategories } from "../../actions/Categories/getCategories";
 
-const OrderListScreen = ({ history, match, location }) => {
+const CategoriesList = ({ history, match, location }) => {
   const dispatch = useDispatch();
-  // const { pageNumber = 1, keyword = "" } = useParams();
   const keyword = match.params.keyword || "";
   const pageNumber = match.params.pageNumber || 1;
 
-  const { loading, error, orders, pages, page } = useSelector(
-    (state) => state.orderList
+  const { loading, error, categories, pages, page } = useSelector(
+    (state) => state.category
   );
 
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -30,15 +29,15 @@ const OrderListScreen = ({ history, match, location }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      history.push(`/admin/orderlist/keyword/${search}/page/1`);
+      history.push(`/admin/categories/keyword/${search}/page/1`);
     } else {
-      history.push("/admin/orderlist");
+      history.push("/admin/categories");
     }
   };
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listOrders(keyword, pageNumber));
+      dispatch(getCategories(keyword, pageNumber));
     } else {
       history.push("/login");
     }
@@ -46,15 +45,15 @@ const OrderListScreen = ({ history, match, location }) => {
 
   return (
     <>
-      <Meta title={`Orders | Page ${pageNumber}`} />
-      <h1>Orders</h1>
+      <Meta title={`Categories | Page ${pageNumber}`} />
+      <h1>Categories</h1>
       <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
         <InputGroup>
           <Form.Control
             type="text"
             name="q"
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search Users"
+            placeholder="Search Categories"
             className="mr-sm-2 ml-sm-5"
           ></Form.Control>
           <Button type="submit" variant="outline-success" className="p-2">
@@ -62,8 +61,7 @@ const OrderListScreen = ({ history, match, location }) => {
           </Button>
         </InputGroup>
         <Form.Text style={{ textAlign: "center" }}>
-          Currently you can only search based off a users Name, If needed make
-          sure to verify the users email
+          Currently you can only search based off a category Name
         </Form.Text>
       </Form>
       {loading ? (
@@ -75,40 +73,24 @@ const OrderListScreen = ({ history, match, location }) => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>USER</th>
-              <th>EMAIL</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
+              <th>CATEGORY</th>
+              <th>ITEMS</th>
+              <th>SLUG</th>
+              <th>CREATED BY</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {orders &&
-              orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.user && order.user_name}</td>
-                  <td>{order.user && order.user.email}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>${order.totalPrice}</td>
+            {categories &&
+              categories.map((category) => (
+                <tr key={category._id}>
+                  <td>{category._id}</td>
+                  <td>{category.cat_name}</td>
+                  <td>{category.cat_items.length}</td>
+                  <td>{category.slug}</td>
+                  <td>{category.user && category.user.name}</td>
                   <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
+                    <LinkContainer to={`/category/${category._id}`}>
                       <Button variant="light" className="btn-sm">
                         Details
                       </Button>
@@ -128,9 +110,9 @@ const OrderListScreen = ({ history, match, location }) => {
                 to={
                   userInfo.isAdmin
                     ? search
-                      ? `/admin/orderlist/keyword/${search}/page/${x + 1}`
-                      : `/admin/orderlist/${x + 1}`
-                    : `/admin/orderlist/${x + 1}`
+                      ? `/admin/categories/keyword/${search}/page/${x + 1}`
+                      : `/admin/categories/${x + 1}`
+                    : `/admin/categories/${x + 1}`
                 }
               >
                 <Pagination.Item
@@ -148,4 +130,4 @@ const OrderListScreen = ({ history, match, location }) => {
   );
 };
 
-export default OrderListScreen;
+export default CategoriesList;

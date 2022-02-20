@@ -1,0 +1,16 @@
+@media (max-width: 980px) {
+  .navbar-nav {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .search-box {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar-nav {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

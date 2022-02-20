@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button, Container, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
-import { listProductDetails, updateProduct } from "../actions/product";
-import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
-import { setAlert } from "../actions/alert";
+import Message from "../../components/Message";
+import Loader from "../../components/Loader";
+import FormContainer from "../../components/FormContainer";
+import { listProductDetails } from "../../actions/Product/listProductDetails";
+import { updateProduct } from "../../actions/Product/updateProduct";
+import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
+import { setAlert } from "../../actions/alert";
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;

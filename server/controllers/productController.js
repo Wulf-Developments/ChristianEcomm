@@ -1,36 +1,44 @@
 import asyncHandler from "express-async-handler";
+import Category from "../models/categoriesModel.js";
 import Product from "../models/productModel.js";
 
 // @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 10;
-  const page = Number(req.query.pageNumber) || 1;
-
-  const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
-
-  const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1))
-    .sort({ createdAt: -1 });
-
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  try {
+    const pageSize = 10;
+    const page = Number(req.query.pageNumber) || 1;
+    const keyword = req.query.keyword
+      ? {
+          name: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+    const count = await Product.countDocuments({ ...keyword });
+    const products = await Product.find({ ...keyword })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
+      .sort({ createdAt: -1 })
+      .populate("categories.category", "id cat_name slug");
+    // res.status(200).json(products);
+    res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Server Error: ${error.message}` });
+  }
 });
 
 // @desc    Fetch single product
 // @route   GET /api/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate(
+    "categories.category",
+    "id cat_name"
+  );
 
   if (product) {
     res.json(product);
@@ -89,15 +97,70 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.price = price;
     product.description = description;
     product.image = image;
-    product.brand = brand;
     product.category = category;
+    product.brand = brand;
     product.countInStock = countInStock;
 
     const updatedProduct = await product.save();
-    res.json(updatedProduct);
+    res.status(200).json(updatedProduct);
   } else {
     res.status(404);
     throw new Error("Product not found");
+  }
+});
+
+// @desc    Update a product
+// @route   PUT /api/products/:id/category
+// @access  Private/Admin
+const addProductCategory = asyncHandler(async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      // need to find the category
+
+      const cat = await Category.findById(req.params.categoryId);
+      if (!cat) {
+        return res.status(404).json({ message: `Could not find Category` });
+      }
+      // check if product has already been linked to category
+      // filter over results, it returns an array, if the array is greater than 0, i.e. 1,
+      // that means the filter found a product in this categories array. so remove the product instead
+      // also unlink the category from the product.
+      if (
+        cat.cat_items.filter(
+          (p) => p.product.toString() === product._id.toString()
+        ).length > 0
+      ) {
+        console.log(`you made it here`);
+        // remove the product from cat_items.
+        cat.cat_items = cat.cat_items.filter(
+          (p) => p.product.toString() !== product._id.toString()
+        );
+        // save category
+        await cat.save();
+        // add the category id to the product categories
+        product.categories = product.categories.filter(
+          (c) => c.category.toString() !== cat._id.toString()
+        );
+        const updatedProduct = await product.save();
+        res.status(200).json(updatedProduct);
+      } else {
+        console.log(`should be adding`);
+        // add product to the cat_items array.
+        cat.cat_items.unshift({ product: product._id });
+        // save category
+        await cat.save();
+        // add the category id to the product categories
+        product.categories.unshift({ category: cat._id });
+        const updatedProduct = await product.save();
+        res.status(200).json(updatedProduct);
+      }
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Server Error: ${error.message}` });
   }
 });
 
@@ -160,4 +223,5 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
+  addProductCategory,
 };

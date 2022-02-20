@@ -1,28 +1,27 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Nav, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+
+import "./AdminNav.css";
 
 const AdminNav = () => {
   return (
-    <Container fluid>
-      <Row style={{ textAlign: "center", margin: "0 0 2%" }}>
-        <Col style={{ padding: "2% 0" }}>
-          <LinkContainer to="/admin/userlist">
-            <Button variant="light">Users</Button>
-          </LinkContainer>
-        </Col>
-        <Col style={{ padding: "2% 0" }}>
-          <LinkContainer to="/admin/orderlist">
-            <Button variant="light">Orders</Button>
-          </LinkContainer>
-        </Col>
-        <Col style={{ padding: "2% 0" }}>
-          <LinkContainer to="/admin/productlist">
-            <Button variant="light">Products</Button>
-          </LinkContainer>
-        </Col>
-      </Row>
-    </Container>
+    <Row className="admin-nav-container hide-sm">
+      <LinkContainer to="/admin/userlist">
+        <Nav.Link>Users</Nav.Link>
+      </LinkContainer>
+
+      <LinkContainer to="/admin/orderlist">
+        <Nav.Link>Orders</Nav.Link>
+      </LinkContainer>
+
+      <LinkContainer to="/admin/productlist">
+        <Nav.Link>Products</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/admin/categories">
+        <Nav.Link>Categories</Nav.Link>
+      </LinkContainer>
+    </Row>
   );
 };
 

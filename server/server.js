@@ -12,6 +12,8 @@ import hpp from "hpp";
 import cors from "cors";
 
 import productRoutes from "./routes/productRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import printifyRoutes from "./routes/Printify/printifyRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
@@ -40,6 +42,8 @@ app.use(hpp());
 app.use(cors());
 
 app.use("/api/products", productRoutes);
+app.use("/api/category", categoryRoutes);
+app.use("/api/printify", printifyRoutes);
 app.use("/api/admin/reports", reportRoutes);
 app.use("/api/support", supportRoutes);
 app.use("/api/users", userRoutes);

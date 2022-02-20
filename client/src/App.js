@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Header from "./components/Navbar/Header";
 import Footer from "./components/Footer";
-import HomeScreen from "./Screens/HomeScreen";
+import HomeScreen from "./Screens/Home/HomeScreen";
 import ProductScreen from "./Screens/Product/ProductScreen";
 import CartScreen from "./Screens/CartScreen";
 import LoginScreen from "./Screens/LoginScreen";
@@ -23,6 +23,7 @@ import PrivateRoute from "./components/Routing/PrivateRoute";
 import AdminOrderListRoutes from "./components/Routes/AdminOrderListRoutes";
 import AdminUserListRoutes from "./components/Routes/AdminUserListRoutes";
 import AdminProductListRoutes from "./components/Routes/AdminProductListRoutes";
+import CategoryRoutes from "./components/Routes/CategoryRoutes";
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -38,6 +39,7 @@ const App = () => {
           <Route component={AdminOrderListRoutes} />
           <Route component={AdminUserListRoutes} />
           <Route component={AdminProductListRoutes} />
+          <Route component={CategoryRoutes} />
           <PrivateRoute path="/order/:id" component={OrderScreen} />
           <PrivateRoute path="/shipping" component={ShippingScreen} />
           <PrivateRoute path="/payment" component={PaymentScreen} />

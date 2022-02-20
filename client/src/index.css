@@ -65,3 +65,11 @@ h2 {
 .dimgray-txt {
   color: rgb(122, 98, 93);
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 780px) {
+  /* utility CSS, hides content on sm screens */
+  .hide-sm {
+    display: none;
+  }
+}

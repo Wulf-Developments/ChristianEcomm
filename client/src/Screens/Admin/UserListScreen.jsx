@@ -9,14 +9,14 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
 import {
   activate,
   deleteUser,
   inactive,
   listUsers,
-} from "../actions/userActions";
-import Meta from "../components/Meta";
+} from "../../actions/userActions";
+import Meta from "../../components/Meta";
 
 const UserListScreen = ({ history, match, location }) => {
   // pulls the pageNumber and Keyword search params

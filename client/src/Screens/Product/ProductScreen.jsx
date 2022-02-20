@@ -13,7 +13,8 @@ import Rating from "../../components/Rating";
 import { useDispatch, useSelector } from "react-redux";
 
 // actions/constants
-import { listProductDetails, createProductReview } from "../../actions/product";
+import { listProductDetails } from "../../actions/Product/listProductDetails";
+import { createProductReview } from "../../actions/Product/createProductReview";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../../constants/productConstants";
 
 // components

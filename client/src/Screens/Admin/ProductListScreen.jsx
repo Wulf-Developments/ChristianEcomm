@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import { listProducts, deleteProduct, createProduct } from "../actions/product";
-import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
-import Paginate from "../components/Paginate";
-import Meta from "../components/Meta";
+import Message from "../../components/Message";
+import Loader from "../../components/Loader";
+import { listProducts } from "../../actions/Product/listProducts";
+import { deleteProduct } from "../../actions/Product/deleteProduct";
+import { createProduct } from "../../actions/Product/createProduct";
+import { PRODUCT_CREATE_RESET } from "../../constants/productConstants";
+import Paginate from "../../components/Paginate";
+import Meta from "../../components/Meta";
+import { Link } from "react-router-dom";
 
 const ProductListScreen = ({ history, match }) => {
   // pulls the pageNumber and Keyword search params
@@ -132,7 +135,20 @@ const ProductListScreen = ({ history, match }) => {
                   <td>{product._id}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
-                  <td>{product.category}</td>
+                  <td>
+                    {product.categories.length > 0 &&
+                      product.categories.map((category) => {
+                        return (
+                          <Link
+                            key={category._id}
+                            style={{ display: "inline" }}
+                            to={`/category/${category.category.slug}`}
+                          >
+                            {category.category.cat_name}{" "}
+                          </Link>
+                        );
+                      })}
+                  </td>
                   <td>{product.brand}</td>
                   <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>

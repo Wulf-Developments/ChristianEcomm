@@ -4,7 +4,12 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Container, Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
+import AdminNav from "../Admin/AdminNav";
 import SearchBox from "../SearchBox";
+import ProductNavigation from "../Product/ProductNavigation";
+
+// css
+import "./index.css";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -38,7 +43,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Route render={({ history }) => <SearchBox history={history} />} />
-            <Nav className="ml-auto">
+            <Nav className="ml-auto nav-items">
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <span className="">
@@ -90,6 +95,10 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Nav style={{ width: "100vw" }}>
+        {userInfo.isAdmin && <AdminNav />}
+        <ProductNavigation />
+      </Nav>
     </header>
   );
 };

@@ -1,6 +1,6 @@
 .carousel {
   text-align: center;
-  background-color: rgb(122, 98, 93);
+  background-color: rgb(37, 30, 29);
   min-height: 400px;
   max-height: 400px;
   width: 75%;
@@ -15,10 +15,16 @@
 }
 
 /* mobile responsiveness */
+@media (max-width: 360px) {
+  .carousel {
+    width: 100%;
+  }
+}
 @media (max-width: 280px) {
   .carousel {
     max-height: 325px;
     min-height: 325px;
+    width: 100%;
   }
   .carousel-image {
     max-height: 325px;

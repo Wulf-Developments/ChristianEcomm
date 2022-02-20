@@ -8,7 +8,7 @@ import Message from "../Message";
 // css
 import "./index.css";
 // actions
-import { listTopProducts } from "../../actions/product";
+import { listTopProducts } from "../../actions/Product/listTopProducts";
 
 const ProductCarousel = () => {
   const dispatch = useDispatch();

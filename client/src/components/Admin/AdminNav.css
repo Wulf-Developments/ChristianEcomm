@@ -1,0 +1,15 @@
+.admin-nav-container {
+  justify-content: space-evenly;
+  background-color: #3f3e40;
+  width: 100%;
+}
+.admin-nav-container a {
+  color: white;
+}
+.admin-nav-container a:hover {
+  color: rgb(197, 197, 197);
+}
+
+.admin-nav-active {
+  color: #a0b5a2;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch } from "react-router-dom";
-import UserEditScreen from "../../Screens/UserEditScreen";
-import UserListScreen from "../../Screens/UserListScreen";
+import UserEditScreen from "../../Screens/Admin/UserEditScreen";
+import UserListScreen from "../../Screens/Admin/UserListScreen";
 import PrivateRoute from "../Routing/PrivateRoute";
 
 const AdminUserListRoutes = () => {
