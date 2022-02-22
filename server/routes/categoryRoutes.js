@@ -10,10 +10,8 @@ const router = express.Router();
 router.route("/").get(getCategories).post(protect, admin, createCategory);
 router
   .route("/:id")
-  .get(getCategory)
   .delete(protect, admin, deleteCategory)
   .put(protect, admin, updateCategory);
-
-
+router.route("/:slug").get(getCategory);
 
 export default router;

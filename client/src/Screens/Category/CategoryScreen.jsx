@@ -2,23 +2,25 @@ import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { getCategory } from "../../actions/Categories/getCategory";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import Product from "../../components/Product/Product";
 
-const CategoryScreen = ({ match }) => {
+const CategoryScreen = ({ match, location }) => {
   const slug = match.params.slug;
   const keyword = match.params.keyword;
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
-  const { loading, products, page, pages } = useSelector(
-    (state) => state.productList
+  const { loading, products, page, pages, category } = useSelector(
+    (state) => state.category
   );
 
   useEffect(() => {
-  }, [dispatch, keyword, pageNumber]);
+    dispatch(getCategory(slug, keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber, location]);
 
   return (
     <>
@@ -47,9 +49,7 @@ const CategoryScreen = ({ match }) => {
               );
             })}
           </Row>
-          <Row style={{ justifyContent: "center" }}>
-            
-          </Row>
+          <Row style={{ justifyContent: "center" }}></Row>
         </>
       )}
     </>

@@ -7,7 +7,9 @@ import Category from "../../models/categoriesModel.js";
  */
 export const getCategories = expressAsyncHandler(async (req, res) => {
   try {
-    const categories = await Category.find({}).populate("user", "id name");
+    const categories = await Category.find({})
+      .populate("user", "id name")
+      .populate("product.product", "id name");
     res.status(200).json(categories);
   } catch (error) {
     console.error(error);

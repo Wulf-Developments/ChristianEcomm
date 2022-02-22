@@ -8,11 +8,15 @@ import Product from "../../models/productModel.js";
  */
 export const getCategory = expressAsyncHandler(async (req, res) => {
   try {
-    const category = await Category.findById(req.params.id);
+    const category = await Category.findOne({
+      slug: req.params.slug,
+    });
     if (!category) {
       return res
         .status(404)
-        .json({ message: `Could not find category with ID: ${req.params.id}` });
+        .json({
+          message: `Could not find category with Slug: ${req.params.slug}`,
+        });
     }
 
     const pageSize = 10;
