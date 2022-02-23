@@ -81,6 +81,16 @@ const ProductListScreen = ({ history, match }) => {
   return (
     <>
       <Meta title={`Products | Page ${pageNumber}`} />
+      <Row className="align-items-center">
+        <Col>
+          <h1>Products</h1>
+        </Col>
+        <Col className="text-right">
+          <Button className="my-3" onClick={createProductHandler}>
+            <i className="fas fa-plus"></i> Create Product
+          </Button>
+        </Col>
+      </Row>
       <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
         <InputGroup>
           <Form.Control
@@ -98,16 +108,6 @@ const ProductListScreen = ({ history, match }) => {
           Currently you can only search based off a Product Name.
         </Form.Text>
       </Form>
-      <Row className="align-items-center">
-        <Col>
-          <h1>Products</h1>
-        </Col>
-        <Col className="text-right">
-          <Button className="my-3" onClick={createProductHandler}>
-            <i className="fas fa-plus"></i> Create Product
-          </Button>
-        </Col>
-      </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}

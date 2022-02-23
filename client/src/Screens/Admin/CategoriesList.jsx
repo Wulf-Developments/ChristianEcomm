@@ -7,12 +7,14 @@ import {
   Row,
   Form,
   InputGroup,
+  Col,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import { getCategories } from "../../actions/Categories/getCategories";
+import { createCategory } from "../../actions/Categories/createCategory";
 
 const CategoriesList = ({ history, match, location }) => {
   const dispatch = useDispatch();
@@ -34,6 +36,14 @@ const CategoriesList = ({ history, match, location }) => {
       history.push("/admin/categories");
     }
   };
+  const createCategoryHandler = () => {
+    const cat_name = prompt(`What is the new category name?`);
+    if (cat_name !== "") {
+      dispatch(createCategory(cat_name));
+    } else {
+      prompt(`You cannot have a category with an empty name`);
+    }
+  };
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -46,7 +56,16 @@ const CategoriesList = ({ history, match, location }) => {
   return (
     <>
       <Meta title={`Categories | Page ${pageNumber}`} />
-      <h1>Categories</h1>
+      <Row className="align-items-center">
+        <Col>
+          <h1>Categories</h1>
+        </Col>
+        <Col className="text-right">
+          <Button className="my-3" onClick={createCategoryHandler}>
+            <i className="fas fa-plus" /> Create New Category
+          </Button>
+        </Col>
+      </Row>
       <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
         <InputGroup>
           <Form.Control
@@ -90,7 +109,7 @@ const CategoriesList = ({ history, match, location }) => {
                   <td>{category.slug}</td>
                   <td>{category.user && category.user.name}</td>
                   <td>
-                    <LinkContainer to={`/category/${category._id}`}>
+                    <LinkContainer to={`/admin/category/${category._id}`}>
                       <Button variant="light" className="btn-sm">
                         Details
                       </Button>

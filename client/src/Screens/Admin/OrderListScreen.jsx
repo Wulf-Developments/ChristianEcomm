@@ -25,7 +25,11 @@ const OrderListScreen = ({ history, match, location }) => {
   );
 
   const { userInfo } = useSelector((state) => state.userLogin);
-
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
   const [search, setSearch] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
@@ -92,7 +96,7 @@ const OrderListScreen = ({ history, match, location }) => {
                   <td>{order.user && order.user_name}</td>
                   <td>{order.user && order.user.email}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>${order.totalPrice}</td>
+                  <td>{formatter.format(order.totalPrice)}</td>
                   <td>
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)

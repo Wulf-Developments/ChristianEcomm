@@ -1,4 +1,5 @@
 import {
+  ADD_CATEGORY,
   CATEGORY_ERROR,
   GET_CATEGORIES,
   GET_CATEGORY,
@@ -37,6 +38,12 @@ export const categoryReducer = (
         pages: action.payload.pages,
         page: action.payload.page,
         products: action.payload.products,
+      };
+    case ADD_CATEGORY:
+      return {
+        ...state,
+        loading: false,
+        categories: [action.payload, ...state.categories],
       };
     case CATEGORY_ERROR:
       return {
