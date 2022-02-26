@@ -11,8 +11,8 @@ export const createCategory = (categoryName) => async (dispatch) => {
     const { data } = await axios.post("/api/category", {
       cat_name: categoryName,
     });
-    console.log(data);
     dispatch({ type: ADD_CATEGORY, payload: data });
+    window.location.reload();
   } catch (error) {
     const message =
       error.response && error.response.data.message

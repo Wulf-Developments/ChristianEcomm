@@ -1,6 +1,7 @@
 import {
   ADD_CATEGORY,
   CATEGORY_ERROR,
+  DELETE_CATEGORY,
   GET_CATEGORIES,
   GET_CATEGORY,
   GET_CATEGORY_REQUEST,
@@ -45,6 +46,12 @@ export const categoryReducer = (
         loading: false,
         categories: [action.payload, ...state.categories],
       };
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        loading: false,
+        categores: state.categories.filter((category) => category._id !== action.payload)
+      }
     case CATEGORY_ERROR:
       return {
         ...state,

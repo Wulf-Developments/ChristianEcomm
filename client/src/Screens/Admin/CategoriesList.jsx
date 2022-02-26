@@ -15,6 +15,8 @@ import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import { getCategories } from "../../actions/Categories/getCategories";
 import { createCategory } from "../../actions/Categories/createCategory";
+import { setAlert } from "../../actions/alert";
+import { deleteCategory } from "../../actions/Categories/deleteCategory";
 
 const CategoriesList = ({ history, match, location }) => {
   const dispatch = useDispatch();
@@ -41,8 +43,13 @@ const CategoriesList = ({ history, match, location }) => {
     if (cat_name !== "") {
       dispatch(createCategory(cat_name));
     } else {
-      prompt(`You cannot have a category with an empty name`);
+      dispatch(
+        setAlert("You cannot have a category with an empty name", "danger")
+      );
     }
+  };
+  const deleteHandler = (id, history) => {
+    dispatch(deleteCategory(id, history));
   };
 
   useEffect(() => {
@@ -114,6 +121,13 @@ const CategoriesList = ({ history, match, location }) => {
                         Details
                       </Button>
                     </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(category._id, history)}
+                    >
+                      <i className="fas fa-trash" />
+                    </Button>
                   </td>
                 </tr>
               ))}
