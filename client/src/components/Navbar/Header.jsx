@@ -97,7 +97,7 @@ const Header = () => {
       </Navbar>
       <Nav style={{ width: "100vw" }}>
         {userInfo && userInfo.isAdmin && <AdminNav />}
-        <ProductNavigation />
+        {/* <ProductNavigation /> */}
       </Nav>
     </header>
   );

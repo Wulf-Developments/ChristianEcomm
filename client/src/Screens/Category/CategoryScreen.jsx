@@ -20,7 +20,7 @@ const CategoryScreen = ({ match, location }) => {
 
   useEffect(() => {
     dispatch(getCategory(slug, keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber, location]);
+  }, [dispatch, keyword, pageNumber, location, slug]);
 
   return (
     <>
