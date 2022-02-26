@@ -47,7 +47,7 @@ const ProductEditScreen = ({ match, history }) => {
         setPrice(product.price);
         setImage(product.image);
         setBrand(product.brand);
-        setCategory(product.categories);
+        setCategory(product.category);
         setCountInStock(product.countInStock);
         setDescription(product.description);
       }
@@ -56,7 +56,9 @@ const ProductEditScreen = ({ match, history }) => {
 
   const categoryChangeHandler = async (e) => {
     let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
+    setCategory({
+      multiValue: [...e.target.selectedOptions].map((o) => o.value),
+    });
   };
   const uploadFileHandler = async (e) => {
     // files, is an array, since we have the ability to upload multiple
@@ -187,17 +189,11 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Group controlId="category">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
-                  as="select"
-                  multiple
+                  type="text"
+                  value={category}
                   placeholder="Enter category"
-                  onChange={categoryChangeHandler}
-                >
-                  {categories.map((category) => {
-                    return (
-                      <option value={category._id}>{category.cat_name}</option>
-                    );
-                  })}
-                </Form.Control>
+                  onChange={(e) => setCategory(e.target.value)}
+                ></Form.Control>
               </Form.Group>
 
               <Form.Group controlId="description">
