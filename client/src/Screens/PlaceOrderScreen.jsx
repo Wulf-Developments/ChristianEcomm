@@ -121,7 +121,9 @@ const PlaceOrderScreen = ({ history }) => {
                 <Row>
                   <Col>
                     <strong style={{ fontWeight: "bold" }}>Shipping</strong>{" "}
-                    <p>Free shipping on orders over $30</p>
+                    <p style={{ color: "#cecece", fontSize: ".75em" }}>
+                      Free shipping on orders over $30
+                    </p>
                   </Col>
                   <Col>
                     {cart.itemsPrice > 30 ? (
