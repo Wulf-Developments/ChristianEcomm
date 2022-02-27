@@ -12,7 +12,7 @@ import "./Home.css";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
-
+  const category = match.params.slug;
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
@@ -22,13 +22,13 @@ const HomeScreen = ({ match }) => {
   );
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber]);
+    dispatch(listProducts(keyword, pageNumber, category));
+  }, [dispatch, keyword, pageNumber, category]);
 
   return (
     <>
       <Meta />
-      {!keyword ? (
+      {!keyword && !category ? (
         <ProductCarousel />
       ) : (
         <Link to="/" className="btn btn-light">

@@ -1,0 +1,3 @@
+export const USER_REPORTS = "USER_REPORTS";
+export const ORDER_REPORTS = "ORDER_REPORTS";
+export const REPORTS_REQUEST = "REPORTS_REQUEST";

@@ -89,6 +89,9 @@ const Header = () => {
                   <LinkContainer to="/admin/orderlist">
                     <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
+                  <LinkContainer to="/admin/reports">
+                    <NavDropdown.Item>Reports</NavDropdown.Item>
+                  </LinkContainer>
                 </NavDropdown>
               )}
             </Nav>
@@ -97,7 +100,7 @@ const Header = () => {
       </Navbar>
       <Nav style={{ width: "100vw" }}>
         {userInfo && userInfo.isAdmin && <AdminNav />}
-        {/* <ProductNavigation /> */}
+        <ProductNavigation />
       </Nav>
     </header>
   );

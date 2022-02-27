@@ -20,8 +20,8 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
     return res.status(404).json({ message: "Invalid Token" });
   }
   user.password = req.body.password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpire = undefined;
+  user.resetPasswordToken = null;
+  user.resetPasswordExpire = null;
   await user.save();
   sendTokenResponse(user, 200, res);
 });

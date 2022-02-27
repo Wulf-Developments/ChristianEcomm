@@ -24,6 +24,7 @@ import AdminOrderListRoutes from "./components/Routes/AdminOrderListRoutes";
 import AdminUserListRoutes from "./components/Routes/AdminUserListRoutes";
 import AdminProductListRoutes from "./components/Routes/AdminProductListRoutes";
 import CategoryRoutes from "./components/Routes/CategoryRoutes";
+import AdminReportRoutes from "./components/Routes/AdminReportRoutes";
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -40,6 +41,7 @@ const App = () => {
           <Route component={AdminUserListRoutes} />
           <Route component={AdminProductListRoutes} />
           <Route component={CategoryRoutes} />
+          <Route component={AdminReportRoutes} />
           <PrivateRoute path="/order/:id" component={OrderScreen} />
           <PrivateRoute path="/shipping" component={ShippingScreen} />
           <PrivateRoute path="/payment" component={PaymentScreen} />

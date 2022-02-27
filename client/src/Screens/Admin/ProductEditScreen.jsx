@@ -18,11 +18,10 @@ const ProductEditScreen = ({ match, history }) => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
-  console.log(category);
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -47,17 +46,17 @@ const ProductEditScreen = ({ match, history }) => {
         setPrice(product.price);
         setImage(product.image);
         setBrand(product.brand);
-        setCategory(product.categories);
+        setCategory(product.category);
         setCountInStock(product.countInStock);
         setDescription(product.description);
       }
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-  const categoryChangeHandler = async (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
-  };
+  // const categoryChangeHandler = async (e) => {
+  //   let value = Array.from(e.target.selectedOptions, (option) => option.value);
+  //   setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
+  // };
   const uploadFileHandler = async (e) => {
     // files, is an array, since we have the ability to upload multiple
     // files we only want the first file.
@@ -187,16 +186,16 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Group controlId="category">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
-                  as="select"
-                  multiple
+                  type="text"
+                  value={category}
                   placeholder="Enter category"
-                  onChange={categoryChangeHandler}
+                  onChange={(e) => setCategory(e.target.value)}
                 >
-                  {categories.map((category) => {
+                  {/* {categories.map((category) => {
                     return (
                       <option value={category._id}>{category.cat_name}</option>
                     );
-                  })}
+                  })} */}
                 </Form.Control>
               </Form.Group>
 
