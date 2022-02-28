@@ -1,5 +1,6 @@
 import {
   ADD_CATEGORY,
+  CATEGORIES_ADMIN,
   CATEGORY_ERROR,
   DELETE_CATEGORY,
   GET_CATEGORIES,
@@ -19,6 +20,7 @@ export const categoryReducer = (
     categories: [],
     error: null,
     success: false,
+    adminCategories: [],
   },
   action
 ) => {
@@ -72,6 +74,12 @@ export const categoryReducer = (
         ...state,
         success: false,
         category: {},
+      };
+    case CATEGORIES_ADMIN:
+      return {
+        ...state,
+        loading: false,
+        adminCategories: action.payload,
       };
     default:
       return state;

@@ -192,15 +192,13 @@ const ProductEditScreen = ({ match, history }) => {
                   value={category}
                   placeholder="Enter category"
                   onChange={(e) => setCategory(e.target.value)}
-
-                >
-                  {/* {categories.map((category) => {
-                    return (
-                      <option value={category._id}>{category.cat_name}</option>
-                    );
-                  })} */}
-                </Form.Control>
-
+                ></Form.Control>
+                <Form.Text style={{ textAlign: "center" }}>
+                  Seperate multiple categories with a space, categories should
+                  match exactly the name of the category you want to place it in
+                  or if the category is plural i.e, Bracelets the category
+                  entered should be (Bracelets) or its singular form (Bracelet)
+                </Form.Text>
               </Form.Group>
 
               <Form.Group controlId="description">

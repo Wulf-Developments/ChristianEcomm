@@ -59,6 +59,11 @@ const CategoryEdit = ({ match, history }) => {
                 onChange={handleChange}
                 required
               />
+              <Form.Text>
+                Please limit the category name to a Single Phrase i.e Necklace,
+                multiple names such as Necklaces Bracelets or any variation
+                thereof mess with the finding of products.
+              </Form.Text>
             </Form.Group>
             <div style={{ textAlign: "center" }}>
               <Button type="submit" variant="primary" style={{ width: "50%" }}>

@@ -10,7 +10,7 @@ import { logout } from "../userActions";
 export const getCategories = () => async (dispatch) => {
   try {
     dispatch({ type: GET_CATEGORY_REQUEST });
-    const { data } = await axios.get("/api/category");
+    const { data } = await axios.get(`/api/category`);
     dispatch({ type: GET_CATEGORIES, payload: data });
   } catch (error) {
     const message =

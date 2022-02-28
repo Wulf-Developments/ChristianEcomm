@@ -29,6 +29,10 @@ const CategoryRoutes = () => {
         <Route path="/category/:slug" component={CategoryScreen} />
 
         {/* For Admin Stuff */}
+        <PrivateRoute
+          path="/admin/categories/keyword/:keyword"
+          component={CategoriesList}
+        />
         <PrivateRoute path="/admin/categories" component={CategoriesList} />
         <PrivateRoute path="/admin/category/:id" component={CategoryEdit} />
       </Switch>
