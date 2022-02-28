@@ -23,12 +23,10 @@ const ProductEditScreen = ({ match, history }) => {
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
-  console.log(category);
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-  const { categories } = useSelector((state) => state.category);
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
@@ -55,12 +53,11 @@ const ProductEditScreen = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-  const categoryChangeHandler = async (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    setCategory({
-      multiValue: [...e.target.selectedOptions].map((o) => o.value),
-    });
-  };
+  // const categoryChangeHandler = async (e) => {
+  //   let value = Array.from(e.target.selectedOptions, (option) => option.value);
+  //   setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
+  // };
+
   const uploadFileHandler = async (e) => {
     // files, is an array, since we have the ability to upload multiple
     // files we only want the first file.
@@ -196,6 +193,12 @@ const ProductEditScreen = ({ match, history }) => {
                   placeholder="Enter category"
                   onChange={(e) => setCategory(e.target.value)}
                 ></Form.Control>
+                <Form.Text style={{ textAlign: "center" }}>
+                  Seperate multiple categories with a space, categories should
+                  match exactly the name of the category you want to place it in
+                  or if the category is plural i.e, Bracelets the category
+                  entered should be (Bracelets) or its singular form (Bracelet)
+                </Form.Text>
               </Form.Group>
 
               <Form.Group controlId="description">

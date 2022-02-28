@@ -10,7 +10,6 @@ import { createProduct } from "../../actions/Product/createProduct";
 import { PRODUCT_CREATE_RESET } from "../../constants/productConstants";
 import Paginate from "../../components/Paginate";
 import Meta from "../../components/Meta";
-import { Link } from "react-router-dom";
 
 const ProductListScreen = ({ history, match }) => {
   // pulls the pageNumber and Keyword search params
@@ -135,20 +134,7 @@ const ProductListScreen = ({ history, match }) => {
                   <td>{product._id}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
-                  <td>
-                    {product.categories.length > 0 &&
-                      product.categories.map((category) => {
-                        return (
-                          <Link
-                            key={category._id}
-                            style={{ display: "inline" }}
-                            to={`/category/${category.category.slug}`}
-                          >
-                            {category.category.cat_name}{" "}
-                          </Link>
-                        );
-                      })}
-                  </td>
+                  <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>

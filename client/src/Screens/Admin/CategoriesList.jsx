@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import {
-  Table,
-  Button,
-  Pagination,
-  Row,
-  Form,
-  InputGroup,
-  Col,
-} from "react-bootstrap";
+import { Table, Button, Row, Form, InputGroup, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
-import { getCategories } from "../../actions/Categories/getCategories";
+import { getCategoriesAdmin } from "../../actions/Categories/getCategoriesAdmin";
 import { createCategory } from "../../actions/Categories/createCategory";
 import { setAlert } from "../../actions/alert";
 import { deleteCategory } from "../../actions/Categories/deleteCategory";
@@ -21,9 +13,8 @@ import { deleteCategory } from "../../actions/Categories/deleteCategory";
 const CategoriesList = ({ history, match, location }) => {
   const dispatch = useDispatch();
   const keyword = match.params.keyword || "";
-  const pageNumber = match.params.pageNumber || 1;
 
-  const { loading, error, categories, pages, page } = useSelector(
+  const { loading, error, adminCategories } = useSelector(
     (state) => state.category
   );
 
@@ -33,7 +24,7 @@ const CategoriesList = ({ history, match, location }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      history.push(`/admin/categories/keyword/${search}/page/1`);
+      history.push(`/admin/categories/keyword/${search}`);
     } else {
       history.push("/admin/categories");
     }
@@ -54,15 +45,15 @@ const CategoriesList = ({ history, match, location }) => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(getCategories(keyword, pageNumber));
+      dispatch(getCategoriesAdmin(keyword));
     } else {
       history.push("/login");
     }
-  }, [dispatch, userInfo, history, pageNumber, keyword]);
+  }, [dispatch, userInfo, history, keyword]);
 
   return (
     <>
-      <Meta title={`Categories | Page ${pageNumber}`} />
+      <Meta title={`Categories`} />
       <Row className="align-items-center">
         <Col>
           <h1>Categories</h1>
@@ -100,19 +91,17 @@ const CategoriesList = ({ history, match, location }) => {
             <tr>
               <th>ID</th>
               <th>CATEGORY</th>
-              <th>ITEMS</th>
               <th>SLUG</th>
               <th>CREATED BY</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {categories &&
-              categories.map((category) => (
+            {adminCategories &&
+              adminCategories.map((category) => (
                 <tr key={category._id}>
                   <td>{category._id}</td>
                   <td>{category.cat_name}</td>
-                  <td>{category.cat_items.length}</td>
                   <td>{category.slug}</td>
                   <td>{category.user && category.user.name}</td>
                   <td>
@@ -134,31 +123,6 @@ const CategoriesList = ({ history, match, location }) => {
           </tbody>
         </Table>
       )}
-      <Row style={{ justifyContent: "center" }}>
-        {pages > 1 && (
-          <Pagination style={{ justifyContent: "center", fontSize: ".8rem" }}>
-            {[...Array(pages).keys()].map((x) => (
-              <LinkContainer
-                key={x + 1}
-                to={
-                  userInfo.isAdmin
-                    ? search
-                      ? `/admin/categories/keyword/${search}/page/${x + 1}`
-                      : `/admin/categories/${x + 1}`
-                    : `/admin/categories/${x + 1}`
-                }
-              >
-                <Pagination.Item
-                  active={x + 1 === page}
-                  style={{ padding: "0" }}
-                >
-                  {x + 1}
-                </Pagination.Item>
-              </LinkContainer>
-            ))}
-          </Pagination>
-        )}
-      </Row>
     </>
   );
 };

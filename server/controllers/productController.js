@@ -17,8 +17,11 @@ const getProducts = asyncHandler(async (req, res) => {
           },
         }
       : {};
-    const count = await Product.countDocuments({ ...keyword });
-    const products = await Product.find({ ...keyword })
+    const category = req.query.category
+      ? { category: { $regex: req.query.category, $options: "i" } }
+      : {};
+    const count = await Product.countDocuments({ ...keyword, ...category });
+    const products = await Product.find({ ...keyword, ...category })
       .limit(pageSize)
       .skip(pageSize * (page - 1))
       .sort({ createdAt: -1 })

@@ -10,7 +10,10 @@ const ProductNavigation = () => {
   const dispatch = useDispatch();
   // should return true if the screen size is less than 780px wide
   const isMobile = useMediaQuery({ query: `(max-width: 780px)` });
-  const { categories, loading } = useSelector((state) => state.category);
+
+  // app state
+  const { categories } = useSelector((state) => state.category);
+
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
@@ -22,13 +25,17 @@ const ProductNavigation = () => {
             <LinkContainer to="/custom-products">
               <Nav.Link>Custom Products</Nav.Link>
             </LinkContainer>
-            {categories.map((category) => {
-              return (
-                <LinkContainer to={`/category/${category.slug}`}>
-                  <Nav.Link>{category.name}</Nav.Link>
-                </LinkContainer>
-              );
-            })}
+            {categories &&
+              categories.map((category) => {
+                return (
+                  <LinkContainer
+                    key={category._id}
+                    to={`/category/${category.slug}`}
+                  >
+                    <Nav.Link>{category.cat_name}</Nav.Link>
+                  </LinkContainer>
+                );
+              })}
           </NavDropdown>
         </>
       ) : (
@@ -36,15 +43,17 @@ const ProductNavigation = () => {
           <LinkContainer to="/custom-products">
             <Nav.Link>Custom Products</Nav.Link>
           </LinkContainer>
-          {categories.map((category) => {
-            return (
-              <div key={category._id}>
-                <LinkContainer to={`/category/${category.slug}`}>
+          {categories &&
+            categories.map((category) => {
+              return (
+                <LinkContainer
+                  key={category._id}
+                  to={`/category/${category.slug}`}
+                >
                   <Nav.Link>{category.cat_name}</Nav.Link>
                 </LinkContainer>
-              </div>
-            );
-          })}
+              );
+            })}
         </Row>
       )}
     </>

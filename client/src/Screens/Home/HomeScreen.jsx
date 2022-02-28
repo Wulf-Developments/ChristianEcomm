@@ -12,7 +12,10 @@ import "./Home.css";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
-
+  // the slug may contain more than one character seperated by a dash
+  // we need to split this, and then rejoin the string for the regex on the backend to work
+  // correctly.
+  const category = match.params.slug;
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
@@ -22,13 +25,13 @@ const HomeScreen = ({ match }) => {
   );
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber]);
+    dispatch(listProducts(keyword, pageNumber, category));
+  }, [dispatch, keyword, pageNumber, category]);
 
   return (
     <>
       <Meta />
-      {!keyword ? (
+      {!keyword && !category ? (
         <ProductCarousel />
       ) : (
         <Link to="/" className="btn btn-light">
@@ -61,6 +64,7 @@ const HomeScreen = ({ match }) => {
               pages={pages}
               page={page}
               keyword={keyword ? keyword : ""}
+              category={category ? category : ""}
             />
           </Row>
         </>
