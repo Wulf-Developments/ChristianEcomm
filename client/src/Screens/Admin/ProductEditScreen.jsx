@@ -10,6 +10,7 @@ import { listProductDetails } from "../../actions/Product/listProductDetails";
 import { updateProduct } from "../../actions/Product/updateProduct";
 import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 import { setAlert } from "../../actions/alert";
+import Meta from "../../components/Meta";
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
@@ -56,6 +57,7 @@ const ProductEditScreen = ({ match, history }) => {
   //   let value = Array.from(e.target.selectedOptions, (option) => option.value);
   //   setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
   // };
+
   const uploadFileHandler = async (e) => {
     // files, is an array, since we have the ability to upload multiple
     // files we only want the first file.
@@ -110,6 +112,7 @@ const ProductEditScreen = ({ match, history }) => {
 
   return (
     <>
+      <Meta title={`Product Edit: ${product.name}`} />
       <Link to="/admin/productlist" className="btn btn-light my-3">
         Go Back
       </Link>
@@ -189,6 +192,7 @@ const ProductEditScreen = ({ match, history }) => {
                   value={category}
                   placeholder="Enter category"
                   onChange={(e) => setCategory(e.target.value)}
+
                 >
                   {/* {categories.map((category) => {
                     return (
@@ -196,6 +200,7 @@ const ProductEditScreen = ({ match, history }) => {
                     );
                   })} */}
                 </Form.Control>
+
               </Form.Group>
 
               <Form.Group controlId="description">
