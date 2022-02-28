@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import CategoriesList from "../../Screens/Admin/CategoriesList";
-import HomeScreen from "../../Screens/Home/HomeScreen";
+import CategoryScreen from "../../Screens/Category/CategoryScreen";
+import CategoryEdit from "../Forms/CategoryEdit";
 import PrivateRoute from "../Routing/PrivateRoute";
 
 const CategoryRoutes = () => {
@@ -15,14 +16,21 @@ const CategoryRoutes = () => {
       */}
         <Route
           path="/category/:slug/keyword/:keyword/page/:pageNumber"
-          component={HomeScreen}
+          component={CategoryScreen}
         />
-        <Route path="/category/:slug/keyword/:keyword" component={HomeScreen} />
-        <Route path="/category/:slug/:pageNumber" component={HomeScreen} />
-        <Route path="/category/:slug" component={HomeScreen} />
+        <Route
+          path="/category/:slug/keyword/:keyword"
+          component={CategoryScreen}
+        />
+        <Route
+          path="/category/:slug/page/:pageNumber"
+          component={CategoryScreen}
+        />
+        <Route path="/category/:slug" component={CategoryScreen} />
 
         {/* For Admin Stuff */}
         <PrivateRoute path="/admin/categories" component={CategoriesList} />
+        <PrivateRoute path="/admin/category/:id" component={CategoryEdit} />
       </Switch>
     </>
   );

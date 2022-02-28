@@ -1,22 +1,23 @@
 import axios from "axios";
 import {
   CATEGORY_ERROR,
-  GET_CATEGORIES,
   GET_CATEGORY_REQUEST,
+  UPDATE_CATEGORY,
 } from "../../constants/categoryConstants";
 import { setAlert } from "../alert";
 import { logout } from "../userActions";
 
-export const getCategories = () => async (dispatch) => {
+export const updateCategory = (form) => async (dispatch) => {
   try {
     dispatch({ type: GET_CATEGORY_REQUEST });
-    const { data } = await axios.get("/api/category");
-    dispatch({ type: GET_CATEGORIES, payload: data });
+    const { data } = await axios.put(`/api/category/${form._id}`, form);
+    dispatch({ type: UPDATE_CATEGORY, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
+
     if (message === "Not authorized, token failed") {
       dispatch(logout());
     }

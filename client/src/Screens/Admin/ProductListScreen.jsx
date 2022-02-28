@@ -10,7 +10,6 @@ import { createProduct } from "../../actions/Product/createProduct";
 import { PRODUCT_CREATE_RESET } from "../../constants/productConstants";
 import Paginate from "../../components/Paginate";
 import Meta from "../../components/Meta";
-import { Link } from "react-router-dom";
 
 const ProductListScreen = ({ history, match }) => {
   // pulls the pageNumber and Keyword search params

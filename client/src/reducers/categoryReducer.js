@@ -5,6 +5,8 @@ import {
   GET_CATEGORIES,
   GET_CATEGORY,
   GET_CATEGORY_REQUEST,
+  UPDATE_CATEGORY,
+  UPDATE_CATEGORY_RESET,
 } from "../constants/categoryConstants";
 
 export const categoryReducer = (
@@ -16,6 +18,7 @@ export const categoryReducer = (
     products: [],
     categories: [],
     error: null,
+    success: false,
   },
   action
 ) => {
@@ -35,10 +38,7 @@ export const categoryReducer = (
       return {
         ...state,
         loading: false,
-        category: action.payload.category,
-        pages: action.payload.pages,
-        page: action.payload.page,
-        products: action.payload.products,
+        category: action.payload,
       };
     case ADD_CATEGORY:
       return {
@@ -50,13 +50,28 @@ export const categoryReducer = (
       return {
         ...state,
         loading: false,
-        categores: state.categories.filter((category) => category._id !== action.payload)
-      }
+        categores: state.categories.filter(
+          (category) => category._id !== action.payload
+        ),
+      };
     case CATEGORY_ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case UPDATE_CATEGORY:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        category: action.payload,
+      };
+    case UPDATE_CATEGORY_RESET:
+      return {
+        ...state,
+        success: false,
+        category: {},
       };
     default:
       return state;

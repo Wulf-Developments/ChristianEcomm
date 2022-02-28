@@ -8,14 +8,6 @@ const categorySchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    cat_items: [
-      {
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-        },
-      },
-    ],
     // Adds a relationship between a User admin and a product
     // this is useful to see which admin, if multiple created a category
     user: {

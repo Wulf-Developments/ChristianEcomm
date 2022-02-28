@@ -100,7 +100,6 @@ const CategoriesList = ({ history, match, location }) => {
             <tr>
               <th>ID</th>
               <th>CATEGORY</th>
-              <th>ITEMS</th>
               <th>SLUG</th>
               <th>CREATED BY</th>
               <th></th>
@@ -112,7 +111,6 @@ const CategoriesList = ({ history, match, location }) => {
                 <tr key={category._id}>
                   <td>{category._id}</td>
                   <td>{category.cat_name}</td>
-                  <td>{category.cat_items.length}</td>
                   <td>{category.slug}</td>
                   <td>{category.user && category.user.name}</td>
                   <td>
