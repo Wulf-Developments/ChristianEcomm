@@ -26,9 +26,14 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
     await user.save();
     sendTokenResponse(user, 200, res);
   } catch (error) {
-    console.error(error)
-    res.status(500).json({message: `Server Error: ${error.message}`})
+    console.error(error);
+    res.status(500).json({ message: `Server Error: ${error.message}` });
   }
+  user.password = req.body.password;
+  user.resetPasswordToken = null;
+  user.resetPasswordExpire = null;
+  await user.save();
+  sendTokenResponse(user, 200, res);
 });
 
 // Get token from model, create a cookie and send response

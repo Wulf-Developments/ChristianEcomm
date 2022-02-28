@@ -23,7 +23,7 @@ const PlaceOrderScreen = ({ history }) => {
     currency: "USD",
     minimumFractionDigits: 2,
   });
-  cart.shippingPrice = cart.itemsPrice > 20 ? 0 : 5;
+  cart.shippingPrice = cart.itemsPrice > 30 ? 0 : 5.99;
   cart.taxPrice = 0.0975 * cart.itemsPrice;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
@@ -119,8 +119,21 @@ const PlaceOrderScreen = ({ history }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping</Col>
-                  <Col>{formatter.format(cart.shippingPrice)}</Col>
+                  <Col>
+                    <strong style={{ fontWeight: "bold" }}>Shipping</strong>{" "}
+                    <p style={{ color: "#cecece", fontSize: ".75em" }}>
+                      Free shipping on orders over $30
+                    </p>
+                  </Col>
+                  <Col>
+                    {cart.itemsPrice > 30 ? (
+                      <span style={{ textDecoration: "line-through" }}>
+                        {formatter.format(5.99)}
+                      </span>
+                    ) : (
+                      formatter.format(cart.shippingPrice)
+                    )}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

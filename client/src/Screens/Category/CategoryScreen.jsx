@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Pagination, Row } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCategory } from "../../actions/Categories/getCategory";
+import { listProducts } from "../../actions/Product/listProducts";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import Product from "../../components/Product/Product";
@@ -14,13 +15,13 @@ const CategoryScreen = ({ match, location }) => {
 
   const dispatch = useDispatch();
 
-  const { loading, products, page, pages, category } = useSelector(
-    (state) => state.category
+  const { loading, products, page, pages } = useSelector(
+    (state) => state.productList
   );
 
   useEffect(() => {
-    dispatch(getCategory(slug, keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber, location]);
+    dispatch(listProducts(keyword, pageNumber, slug));
+  }, [dispatch, keyword, pageNumber, location, slug]);
 
   return (
     <>
@@ -49,7 +50,26 @@ const CategoryScreen = ({ match, location }) => {
               );
             })}
           </Row>
-          <Row style={{ justifyContent: "center" }}></Row>
+          <Row style={{ justifyContent: "center" }}>
+            {pages > 1 && (
+              <Pagination>
+                {[...Array(pages).keys()].map((x) => (
+                  <LinkContainer
+                    key={x + 1}
+                    to={
+                      keyword && slug
+                        ? `/category/${slug}/search/${keyword}/page/${x + 1}`
+                        : `/category/${slug}/page/${x + 1}`
+                    }
+                  >
+                    <Pagination.Item active={x + 1 === page}>
+                      {x + 1}
+                    </Pagination.Item>
+                  </LinkContainer>
+                ))}
+              </Pagination>
+            )}
+          </Row>
         </>
       )}
     </>

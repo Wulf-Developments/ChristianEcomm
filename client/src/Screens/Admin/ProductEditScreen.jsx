@@ -10,6 +10,7 @@ import { listProductDetails } from "../../actions/Product/listProductDetails";
 import { updateProduct } from "../../actions/Product/updateProduct";
 import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 import { setAlert } from "../../actions/alert";
+import Meta from "../../components/Meta";
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
@@ -18,16 +19,14 @@ const ProductEditScreen = ({ match, history }) => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
-  console.log(category);
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-  const { categories } = useSelector((state) => state.category);
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
@@ -47,17 +46,18 @@ const ProductEditScreen = ({ match, history }) => {
         setPrice(product.price);
         setImage(product.image);
         setBrand(product.brand);
-        setCategory(product.categories);
+        setCategory(product.category);
         setCountInStock(product.countInStock);
         setDescription(product.description);
       }
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-  const categoryChangeHandler = async (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
-  };
+  // const categoryChangeHandler = async (e) => {
+  //   let value = Array.from(e.target.selectedOptions, (option) => option.value);
+  //   setCategory({multiValue: [...e.target.selectedOptions].map(o => o.value)});
+  // };
+
   const uploadFileHandler = async (e) => {
     // files, is an array, since we have the ability to upload multiple
     // files we only want the first file.
@@ -112,6 +112,7 @@ const ProductEditScreen = ({ match, history }) => {
 
   return (
     <>
+      <Meta title={`Product Edit: ${product.name}`} />
       <Link to="/admin/productlist" className="btn btn-light my-3">
         Go Back
       </Link>
@@ -187,17 +188,17 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Group controlId="category">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
-                  as="select"
-                  multiple
+                  type="text"
+                  value={category}
                   placeholder="Enter category"
-                  onChange={categoryChangeHandler}
-                >
-                  {categories.map((category) => {
-                    return (
-                      <option value={category._id}>{category.cat_name}</option>
-                    );
-                  })}
-                </Form.Control>
+                  onChange={(e) => setCategory(e.target.value)}
+                ></Form.Control>
+                <Form.Text style={{ textAlign: "center" }}>
+                  Seperate multiple categories with a space, categories should
+                  match exactly the name of the category you want to place it in
+                  or if the category is plural i.e, Bracelets the category
+                  entered should be (Bracelets) or its singular form (Bracelet)
+                </Form.Text>
               </Form.Group>
 
               <Form.Group controlId="description">
