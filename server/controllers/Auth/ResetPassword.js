@@ -6,24 +6,29 @@ import User from "../../models/userModel.js";
    @access  Public
  */
 export const ResetPassword = asyncHandler(async (req, res, next) => {
-  // Get hashed token
-  const resetPassToken = crypto
-    .createHash("sha256")
-    .update(req.params.resettoken)
-    .digest("hex");
-  const user = await User.findOne({
-    resetPassToken: resetPassToken,
-    resetPasswordExpire: { $gt: Date.now() },
-  });
-  // doesnt exist or password token expired
-  if (!user) {
-    return res.status(404).json({ message: "Invalid Token" });
+  try {
+    // Get hashed token
+    const resetPassToken = crypto
+      .createHash("sha256")
+      .update(req.params.resettoken)
+      .digest("hex");
+    const user = await User.findOne({
+      resetPassToken: resetPassToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+    // doesnt exist or password token expired
+    if (!user) {
+      return res.status(404).json({ message: "Invalid Token" });
+    }
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+    sendTokenResponse(user, 200, res);
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({message: `Server Error: ${error.message}`})
   }
-  user.password = req.body.password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpire = undefined;
-  await user.save();
-  sendTokenResponse(user, 200, res);
 });
 
 // Get token from model, create a cookie and send response
