@@ -1,5 +1,6 @@
 import asyncHandler from "../../middleware/async.js";
 import User from "../../models/userModel.js";
+import crypto from "crypto";
 
 /* @desc    Reset Password
    @route   PUT /api/auth/resetpassword/:resettoken
