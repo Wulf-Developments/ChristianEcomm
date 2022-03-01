@@ -22,9 +22,9 @@ const ProductNavigation = () => {
       {isMobile ? (
         <>
           <NavDropdown title="Products" id="productsmenu">
-            <LinkContainer to="/custom-products">
+            {/* <LinkContainer to="/custom-products">
               <Nav.Link>Custom Products</Nav.Link>
-            </LinkContainer>
+            </LinkContainer> */}
             {categories &&
               categories.map((category) => {
                 return (
@@ -40,9 +40,9 @@ const ProductNavigation = () => {
         </>
       ) : (
         <Row style={{ justifyContent: "space-evenly", width: "100%" }}>
-          <LinkContainer to="/custom-products">
+          {/* <LinkContainer to="/custom-products">
             <Nav.Link>Custom Products</Nav.Link>
-          </LinkContainer>
+          </LinkContainer> */}
           {categories &&
             categories.map((category) => {
               return (

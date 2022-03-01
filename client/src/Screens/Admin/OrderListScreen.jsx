@@ -84,7 +84,7 @@ const OrderListScreen = ({ history, match, location }) => {
               <th>DATE</th>
               <th>TOTAL</th>
               <th>PAID</th>
-              <th>DELIVERED</th>
+              <th>SHIPPED</th>
               <th></th>
             </tr>
           </thead>
