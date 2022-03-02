@@ -40,7 +40,7 @@ const Reports = () => {
       ) : (
         <Container fluid>
           <Row>
-            <Col className="report-container">
+            <Col className="report-container" lg={6} md={12}>
               <h2 style={{ textAlign: "center" }}>Users</h2>
               <p>
                 From:{" "}
