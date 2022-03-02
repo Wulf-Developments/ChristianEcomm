@@ -7,53 +7,28 @@ import crypto from "crypto";
    @access  Public
  */
 export const ResetPassword = asyncHandler(async (req, res, next) => {
-  try {
-    // Get hashed token
-    const resetPassToken = crypto
-      .createHash("sha256")
-      .update(req.params.resettoken)
-      .digest("hex");
-    const user = await User.findOne({
-      resetPassToken: resetPassToken,
-      resetPasswordExpire: { $gt: Date.now() },
-    });
-    // doesnt exist or password token expired
-    if (!user) {
-      return res.status(404).json({ message: "Invalid Token" });
-    }
-    user.password = req.body.password;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
-    await user.save();
-    sendTokenResponse(user, 200, res);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: `Server Error: ${error.message}` });
+  // Get hashed token
+  const resetPassToken = crypto
+    .createHash("sha256")
+    .update(req.params.resettoken)
+    .digest("hex");
+  const user = await User.findOne({
+    resetPasswordToken: resetPassToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+  // doesnt exist or password token expired
+  if (!user) {
+    return res.status(404).json({ message: "Invalid Token" });
   }
   user.password = req.body.password;
-  user.resetPasswordToken = null;
-  user.resetPasswordExpire = null;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
   await user.save();
-  sendTokenResponse(user, 200, res);
+  res.status(201).res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    token: generateToken(user._id),
+  });
 });
-
-// Get token from model, create a cookie and send response
-const sendTokenResponse = (user, statusCode, res) => {
-  // create token
-  const token = user.getSignedJwtToken();
-
-  // options
-  const options = {
-    // expires in 30 days
-    expires: new Date(Date.now + 30 * 24 * 60 * 60 * 1000),
-    // accessible only by clientside script
-    httpOnly: true,
-  };
-  if (process.env.NODE_ENV === "production") {
-    options.secure = true;
-  }
-  res
-    .status(statusCode)
-    .cookie("token", token, options)
-    .json({ success: true, token });
-};
