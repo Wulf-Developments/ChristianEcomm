@@ -14,7 +14,6 @@ export const userReports = expressAsyncHandler(async (req, res) => {
     // lastMonth.setMonth(lastMonth.getMonth() - 1);
     lastMonth.setDate("0");
     const thisMonth = new Date();
-
     // We should count all the documents that were created over the last month,
     // this will be the total number of orders for the month prior
     const lastMonthUsers = await User.countDocuments({
@@ -22,9 +21,15 @@ export const userReports = expressAsyncHandler(async (req, res) => {
       createdAt: { $lte: thisMonth.getMonth() + 1 },
       createdAt: { $gte: lastMonth.getMonth() },
     });
-    const newUsers = await User.countDocuments({
-      createdAt: { $lte: thisMonth.getMonth() + 1 },
-    });
+    const newUsers = await User.aggregate([
+      {
+        $match: {
+          $expr: {
+            $eq: [{ $month: "$createdAt" }, thisMonth.getMonth() + 1],
+          },
+        },
+      },
+    ]);
     // percent difference formula
     // PD = (|x - y|/((x + y)/2) * 100)
     // this will take the number of users from last month,
@@ -33,8 +38,8 @@ export const userReports = expressAsyncHandler(async (req, res) => {
     // however, its reasonable to assume that if the number of lastMonth users is greater
     // than newUsers, its a negative number.
     const percentNewUsers =
-      (Math.abs(newUsers - lastMonthUsers) /
-        ((lastMonthUsers + newUsers) / 2)) *
+      (Math.abs(newUsers.length - lastMonthUsers) /
+        ((lastMonthUsers + newUsers.length) / 2)) *
       100;
 
     // we also want to get the total amount of users
@@ -42,7 +47,7 @@ export const userReports = expressAsyncHandler(async (req, res) => {
     // Respond with results
     res.json({
       lastMonth: lastMonthUsers,
-      thisMonth: newUsers,
+      thisMonth: newUsers.length,
       percentNew:
         newUsers > lastMonthUsers ? percentNewUsers : -percentNewUsers,
       total: total,

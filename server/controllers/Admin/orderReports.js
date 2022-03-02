@@ -22,10 +22,15 @@ export const orderReports = expressAsyncHandler(async (req, res) => {
       createdAt: { $lte: thisMonth.getMonth() + 1 },
       createdAt: { $gte: lastMonth.getMonth() },
     });
-    const thisMonthSales = await Order.countDocuments({
-      createdAt: { $lte: thisMonth.getMonth() + 1 },
-    });
-    console.log(lastMonth.getMonth() + 1);
+    const thisMonthSales = await Order.aggregate([
+      {
+        $match: {
+          $expr: {
+            $eq: [{ $month: "$createdAt" }, thisMonth.getMonth() + 1],
+          },
+        },
+      },
+    ]);
     // we need to also find the total of sales from the previous month, and this month
     const totalLast = await Order.aggregate([
       {
@@ -34,6 +39,7 @@ export const orderReports = expressAsyncHandler(async (req, res) => {
             $eq: [{ $month: "$createdAt" }, thisMonth.getMonth() + 1],
             $eq: [{ $month: "$createdAt" }, lastMonth.getMonth() + 1],
           },
+          isPaid: true,
         },
       },
       {
@@ -87,7 +93,7 @@ export const orderReports = expressAsyncHandler(async (req, res) => {
       100;
     res.status(200).json({
       lastMonth: lastMonthSales,
-      thisMonth: thisMonthSales,
+      thisMonth: thisMonthSales.length,
       totalSalesLast,
       totalSalesThis,
       // if totalSalesLast is greater than totalSalesThis it can be reasonably be assumed
