@@ -19,6 +19,8 @@ import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import supportRoutes from "./routes/supportRoutes.js";
 import reportRoutes from "./routes/AdminRoutes/reportRoutes.js";
+import expenseRoutes from "./routes/AdminRoutes/expenseRoutes.js";
+import dynamicRoutes from "./routes/AdminRoutes/dynamicRoutes.js";
 dotenv.config();
 
 connectDB();
@@ -38,8 +40,6 @@ app.use(mongoSanitize());
 app.use(xss());
 // Prevent hpp pollution
 app.use(hpp());
-// CORS
-app.use(cors());
 
 app.use("/api/products", productRoutes);
 app.use("/api/category", categoryRoutes);
@@ -49,6 +49,8 @@ app.use("/api/support", supportRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/expenses", expenseRoutes);
+app.use("/api/dynamic", dynamicRoutes);
 
 app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)

@@ -13,7 +13,7 @@ const Footer = () => {
     <footer>
       <Container fluid>
         <Row style={{ fontFamily: "sans-serif", fontSize: ".75em" }}>
-          <Col className="text-center py-3 black-bg dimgray-txt">
+          <Col className="text-center py-3 trim-dark-bg">
             <p>
               Copyright &copy;{" "}
               <a

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
@@ -10,16 +10,21 @@ import ProductNavigation from "../Product/ProductNavigation";
 
 // css
 import "./index.css";
+import { getLogo } from "../../actions/Admin/getLogo";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
+  const { logo } = useSelector((state) => state.dynamic);
 
   const logoutHandler = () => {
     dispatch(logout());
   };
+  useEffect(() => {
+    dispatch(getLogo());
+  }, [dispatch]);
 
   return (
     <header>
@@ -27,16 +32,13 @@ const Header = () => {
         expand="lg"
         variant="dark"
         collapseOnSelect
-        style={{ backgroundColor: "rgb(99,129,124)" }}
+        className="primary-bg"
       >
         <Container fluid>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <span className="darkslategray-txt">
-                <Image
-                  src="/images/ChristianEcommLogo.png"
-                  style={{ height: "80px" }}
-                />
+              <span>
+                <Image src={logo.value} style={{ height: "80px" }} fluid />
               </span>
             </Navbar.Brand>
           </LinkContainer>

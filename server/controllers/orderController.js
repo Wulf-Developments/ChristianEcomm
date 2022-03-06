@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
+import sendEmail from "../utils/sendEmail.js";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
+import { orderReceipt } from "../EmailTemplates/orderReceipt.js";
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -74,18 +76,42 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     // Get the array of products from the order.
     const products = order.orderItems;
     // we need to loop over the array of products and remove from stock the qty, of each product
-    try {
-      products.map(async (product) => {
+
+    await products.map(async (product) => {
+      try {
         const productToBeUpdated = await Product.findById(product.product);
+        // console.log(product);
+        if (!productToBeUpdated) {
+          return res.status(400).json({ message: "cannot find product" });
+        }
+        if (product.price !== productToBeUpdated.price) {
+          return res.status(400).json({
+            message: `Product: ${product.name}\`s price does not match database, please contact support`,
+          });
+        }
         productToBeUpdated.countInStock -= product.qty;
         productToBeUpdated.save();
-      });
-    } catch (error) {
-      res.status(400).json({ message: "Problem updating Quantity Stock" });
-    }
-    const updatedOrder = await order.save();
+        // Send message to store owner
+        await sendEmail({
+          email: process.env.SUPPORT_EMAIL,
+          subject: `New Order - Crown Of Life Products`,
+          message: await orderReceipt(order),
+        });
 
-    res.json(updatedOrder);
+        // Send message to client
+        await sendEmail({
+          email: order.paymentResult.email_address,
+          subject: `Order Receipt - Crown Of Life Products`,
+          message: await orderReceipt(order),
+        });
+        const updatedOrder = await order.save();
+        res.status(200).json(updatedOrder);
+      } catch (error) {
+        res.status(500).json({
+          message: `Failed product Verification, please contact support if problem persist`,
+        });
+      }
+    });
   } else {
     res.status(404);
     throw new Error("Order not found");

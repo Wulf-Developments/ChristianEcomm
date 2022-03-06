@@ -49,7 +49,9 @@ export const userReports = expressAsyncHandler(async (req, res) => {
       lastMonth: lastMonthUsers,
       thisMonth: newUsers.length,
       percentNew:
-        newUsers > lastMonthUsers ? percentNewUsers : -percentNewUsers,
+        newUsers > lastMonthUsers
+          ? percentNewUsers.toFixed(2)
+          : -percentNewUsers.toFixed(2),
       total: total,
     });
   } catch (error) {
