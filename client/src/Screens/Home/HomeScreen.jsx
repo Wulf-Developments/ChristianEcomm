@@ -38,7 +38,7 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
-      <h1>Latest Products</h1>
+      <h1 className="home-page-h1">Latest Products</h1>
       {loading ? (
         <Loader />
       ) : (
@@ -47,7 +47,7 @@ const HomeScreen = ({ match }) => {
             {products.map((product) => {
               return (
                 <Col
-                  className="align-items-stretch d-flex"
+                  className="align-items-stretch d-flex item-container"
                   key={product._id}
                   sm={12}
                   md={6}

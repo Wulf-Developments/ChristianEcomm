@@ -59,21 +59,6 @@ const UserListScreen = ({ history, match, location }) => {
       history.push("/admin/userlist");
     }
   };
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure? This action cannot be undone!")) {
-      dispatch(deleteUser(id));
-    }
-  };
-  const inactiveHandler = (id, isAdmin) => {
-    if (window.confirm("Are you sure you?")) {
-      dispatch(inactive(id, isAdmin));
-    }
-  };
-  const activeHandler = (id) => {
-    if (window.confirm(`Are you sure youd like to re-activate this user?`)) {
-      dispatch(activate(id));
-    }
-  };
 
   return (
     <>
@@ -98,94 +83,7 @@ const UserListScreen = ({ history, match, location }) => {
             sure to verify the users email
           </Form.Text>
         </Form>
-        {loading ? (
-          <Loader />
-        ) : (
-          <Table
-            striped
-            bordered
-            hover
-            responsive
-            className="table-sm"
-            style={{ padding: "5%" }}
-          >
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Admin</th>
-                <th>Inactive/Active</th>
-                <th>Edit / Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.name}</td>
-                  <td>
-                    <a href={`mailto:${user.email}`}>{user.email}</a>
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    {user.isAdmin ? (
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "green" }}
-                      ></i>
-                    ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    {user.isActive ? (
-                      <Button
-                        onClick={() =>
-                          inactiveHandler(user._id, userInfo.isAdmin)
-                        }
-                        variant="light"
-                        className="btn-sm"
-                        disabled={userInfo._id === user._id}
-                      >
-                        <i
-                          className="fas fa-check"
-                          style={{ color: "green" }}
-                        ></i>
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => activeHandler(user._id)}
-                        variant="light"
-                        className="btn-sm"
-                        disabled={userInfo._id === user._id}
-                      >
-                        <i
-                          className="fas fa-times"
-                          style={{ color: "red" }}
-                        ></i>
-                      </Button>
-                    )}
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                      <Button variant="light" className="btn-sm">
-                        <i className="fas fa-edit"></i>
-                      </Button>
-                    </LinkContainer>
-                    <Button
-                      variant="danger"
-                      className="btn-sm"
-                      onClick={() => deleteHandler(user._id)}
-                      disabled={userInfo._id === user._id}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
+        {/* {loading ? <Loader /> : <UserListTable users={users} />} */}
         <Container>
           {userInfo && pages > 1 && (
             <Pagination style={{ justifyContent: "center", fontSize: ".8rem" }}>

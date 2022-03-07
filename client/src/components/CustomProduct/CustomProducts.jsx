@@ -6,7 +6,6 @@ import { getCustomProducts } from "../../actions/Product/getCustomProducts";
 import Loader from "../Loader";
 import Meta from "../Meta";
 import Paginate from "../Paginate";
-import Product from "../Product/Product";
 import CustomProductItem from "./CustomProductItem";
 
 const CustomProducts = ({ match }) => {

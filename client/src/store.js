@@ -33,8 +33,10 @@ import { alert } from "./reducers/alertReducer";
 import { categoryReducer } from "./reducers/categoryReducer";
 import { reportReducer } from "./reducers/reportReducer";
 import { dynamicReducer } from "./reducers/dynamicReducer";
+import { expenseReducer } from "./reducers/expenseReducer";
 
 const reducer = combineReducers({
+  expenses: expenseReducer,
   dynamic: dynamicReducer,
   reports: reportReducer,
   alert: alert,

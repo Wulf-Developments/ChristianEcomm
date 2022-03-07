@@ -110,7 +110,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 //@route Get /api/users
 //@access Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 2;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }

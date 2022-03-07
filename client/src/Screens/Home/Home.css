@@ -1,3 +1,14 @@
 .products-listing {
   margin: 0 auto;
+  justify-content: space-evenly;
+}
+.home-page-h1 {
+  text-align: center;
+  padding: 2.5% 0;
+}
+
+@media (max-width: 780px) {
+  .item-container {
+    justify-content: center;
+  }
 }

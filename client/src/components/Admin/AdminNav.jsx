@@ -21,6 +21,9 @@ const AdminNav = () => {
       <LinkContainer to="/admin/categories">
         <Nav.Link>Categories</Nav.Link>
       </LinkContainer>
+      <LinkContainer to="/admin/admin-panel">
+        <Nav.Link>Panel</Nav.Link>
+      </LinkContainer>
     </Row>
   );
 };

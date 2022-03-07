@@ -2,8 +2,8 @@ import axios from "axios";
 import {
   DYNAMIC_CONTENT_REQUEST,
   GET_LOGO,
-} from "../../constants/dynamicConstants";
-import { setAlert } from "../alert";
+} from "../../../constants/dynamicConstants";
+import { setAlert } from "../../alert";
 
 export const getLogo = () => async (dispatch) => {
   try {

@@ -84,8 +84,12 @@ const ProductListScreen = ({ history, match }) => {
         <Col>
           <h1>Products</h1>
         </Col>
-        <Col className="text-right">
-          <Button className="my-3" onClick={createProductHandler}>
+        <Col className="text-end">
+          <Button
+            className="my-3"
+            variant="outline-success"
+            onClick={createProductHandler}
+          >
             <i className="fas fa-plus"></i> Create Product
           </Button>
         </Col>

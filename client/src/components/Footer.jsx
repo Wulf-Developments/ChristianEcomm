@@ -13,8 +13,8 @@ const Footer = () => {
     <footer>
       <Container fluid>
         <Row style={{ fontFamily: "sans-serif", fontSize: ".75em" }}>
-          <Col className="text-center py-3 trim-dark-bg">
-            <p>
+          <Col className="text-center py-3 trim-dark-bg ">
+            <p className="secondary-txt">
               Copyright &copy;{" "}
               <a
                 style={{ color: "white" }}
@@ -26,13 +26,13 @@ const Footer = () => {
               </a>{" "}
               {newdate}
             </p>
-            <p>
+            <p className="secondary-txt">
               If you are experiencing any issues with the app please{" "}
               <Link to="/support" style={{ color: "white" }}>
                 Contact Us
               </Link>
             </p>
-            <p>
+            <p className="secondary-txt">
               View our{" "}
               <a
                 href={privacyPolicy}

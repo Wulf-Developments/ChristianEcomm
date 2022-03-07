@@ -58,8 +58,12 @@ const CategoriesList = ({ history, match, location }) => {
         <Col>
           <h1>Categories</h1>
         </Col>
-        <Col className="text-right">
-          <Button className="my-3" onClick={createCategoryHandler}>
+        <Col className="text-end">
+          <Button
+            className="my-3"
+            variant="outline-success"
+            onClick={createCategoryHandler}
+          >
             <i className="fas fa-plus" /> Create New Category
           </Button>
         </Col>
