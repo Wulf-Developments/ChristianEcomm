@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 import AdminScreen from "../../Screens/Admin/AdminScreen";
-import OrderListScreen from "../../Screens/Admin/OrderListScreen";
 import PrivateRoute from "../Routing/PrivateRoute";
 
 const AdminOrderListRoutes = ({ match }) => {

@@ -25,7 +25,6 @@ import AdminUserListRoutes from "./components/Routes/AdminUserListRoutes";
 import AdminProductListRoutes from "./components/Routes/AdminProductListRoutes";
 import CategoryRoutes from "./components/Routes/CategoryRoutes";
 import AdminRoutes from "./components/Routes/AdminRoutes";
-import CustomProductRoutes from "./components/Routes/CustomProductRoutes";
 import CategoryScreen from "./Screens/Category/CategoryScreen";
 
 const App = ({ match }) => {

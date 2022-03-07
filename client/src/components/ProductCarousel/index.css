@@ -13,7 +13,12 @@
   max-height: 400px;
   min-height: 400px;
 }
-
+.carousel-product-name {
+  font-size: 1.7rem;
+  color: var(--secondary) !important;
+  text-shadow: 2px 0 0 var(--primary), 0 2px 0 var(--primary),
+    -2px 0 0 var(--primary), 0 -2px 0 var(--primary);
+}
 /* mobile responsiveness */
 @media (max-width: 360px) {
   .carousel {

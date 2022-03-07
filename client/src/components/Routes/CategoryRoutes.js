@@ -1,9 +1,6 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import AdminScreen from "../../Screens/Admin/AdminScreen";
-import CategoriesList from "../../Screens/Admin/CategoriesList";
-import CategoryScreen from "../../Screens/Category/CategoryScreen";
-import CategoryEdit from "../Forms/CategoryEdit";
 import PrivateRoute from "../Routing/PrivateRoute";
 
 const CategoryRoutes = ({ match }) => {

@@ -36,7 +36,7 @@ const ProductCarousel = () => {
               className="carousel-image"
             />
             <Carousel.Caption className="carousel-caption">
-              <h2>
+              <h2 className="carousel-product-name hide-sm">
                 {product.name} (${product.price})
               </h2>
             </Carousel.Caption>
