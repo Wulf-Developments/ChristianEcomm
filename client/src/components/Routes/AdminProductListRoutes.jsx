@@ -1,29 +1,30 @@
 import React from "react";
 import { Switch } from "react-router-dom";
-import ProductListScreen from "../../Screens/Admin/ProductListScreen";
 import ProductEditScreen from "../../Screens/Admin/ProductEditScreen";
 import PrivateRoute from "../Routing/PrivateRoute";
+import AdminScreen from "../../Screens/Admin/AdminScreen";
 
-const AdminProductListRoutes = () => {
+const AdminProductListRoutes = ({ match }) => {
   return (
     <Switch>
       <PrivateRoute
-        path="/admin/productlist/search/:keyword/page/:pageNumber"
-        component={ProductListScreen}
+        path={match.url + "/:view/productlist/search/:keyword/page/:pageNumber"}
+        component={AdminScreen}
         exact
       />
       <PrivateRoute
-        path="/admin/productlist/:pageNumber"
-        component={ProductListScreen}
+        path={match.url + "/:view/productlist/:pageNumber"}
+        component={AdminScreen}
         exact
       />
       <PrivateRoute
-        path="/admin/product/:id/edit"
+        path={match.url + "/:view/productlist/product/:id/edit"}
         component={ProductEditScreen}
+        exact
       />
       <PrivateRoute
-        path="/admin/productlist"
-        component={ProductListScreen}
+        path={match.url + "/:view/productlist"}
+        component={AdminScreen}
         exact
       />
     </Switch>

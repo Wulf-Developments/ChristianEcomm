@@ -9,6 +9,7 @@ import {
   productUpdateReducer,
   productReviewCreateReducer,
   productTopRatedReducer,
+  customProductListReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
@@ -31,11 +32,17 @@ import {
 import { alert } from "./reducers/alertReducer";
 import { categoryReducer } from "./reducers/categoryReducer";
 import { reportReducer } from "./reducers/reportReducer";
+import { dynamicReducer } from "./reducers/dynamicReducer";
+import { expenseReducer } from "./reducers/expenseReducer";
 
 const reducer = combineReducers({
+  expenses: expenseReducer,
+  dynamic: dynamicReducer,
   reports: reportReducer,
   alert: alert,
   category: categoryReducer,
+  // Products
+  customList: customProductListReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
@@ -43,7 +50,9 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   productTopRated: productTopRatedReducer,
+  // Cart
   cart: cartReducer,
+  // User & Auth
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
@@ -51,6 +60,7 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  // Order
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,

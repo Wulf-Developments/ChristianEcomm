@@ -1,5 +1,6 @@
 import asyncHandler from "../../middleware/async.js";
 import User from "../../models/userModel.js";
+import crypto from "crypto";
 
 /* @desc    Reset Password
    @route   PUT /api/auth/resetpassword/:resettoken
@@ -12,7 +13,7 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
     .update(req.params.resettoken)
     .digest("hex");
   const user = await User.findOne({
-    resetPassToken: resetPassToken,
+    resetPasswordToken: resetPassToken,
     resetPasswordExpire: { $gt: Date.now() },
   });
   // doesnt exist or password token expired
@@ -20,29 +21,14 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
     return res.status(404).json({ message: "Invalid Token" });
   }
   user.password = req.body.password;
-  user.resetPasswordToken = null;
-  user.resetPasswordExpire = null;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
   await user.save();
-  sendTokenResponse(user, 200, res);
+  res.status(201).res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    token: generateToken(user._id),
+  });
 });
-
-// Get token from model, create a cookie and send response
-const sendTokenResponse = (user, statusCode, res) => {
-  // create token
-  const token = user.getSignedJwtToken();
-
-  // options
-  const options = {
-    // expires in 30 days
-    expires: new Date(Date.now + 30 * 24 * 60 * 60 * 1000),
-    // accessible only by clientside script
-    httpOnly: true,
-  };
-  if (process.env.NODE_ENV === "production") {
-    options.secure = true;
-  }
-  res
-    .status(statusCode)
-    .cookie("token", token, options)
-    .json({ success: true, token });
-};

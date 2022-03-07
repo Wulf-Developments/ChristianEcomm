@@ -67,11 +67,11 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{e}</Message>
       ) : (
         <>
-          <Row>
-            <Col md={6} className="product-image-container">
+          <Row style={{ justifyContent: "space-evenly" }}>
+            <Col lg={6} md={8} className="product-image-container">
               <Image src={product.image} alt={product.name} fluid />
             </Col>
-            <Col md={3}>
+            <Col lg={3} md={4}>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h4>{product.name}</h4>
@@ -90,7 +90,7 @@ const ProductScreen = ({ history, match }) => {
                 </ListGroup.Item>
               </ListGroup>
             </Col>
-            <Col md={3}>
+            <Col lg={3} className="product-details-container">
               <Card>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
@@ -149,19 +149,12 @@ const ProductScreen = ({ history, match }) => {
               </Card>
             </Col>
           </Row>
-          <Row>
-            <Col md={6}>
-              <h2>Reviews</h2>
-              {product.reviews.length === 0 && <Message>No Reviews</Message>}
+          <Row className="product-review-container">
+            <h2>Reviews</h2>
+            {product.reviews.length === 0 && <Message>No Reviews</Message>}
+
+            <Col md={8}>
               <ListGroup variant="flush">
-                {product.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
-                  </ListGroup.Item>
-                ))}
                 <ListGroup.Item style={{ backgroundColor: "#cfcfcf" }}>
                   <h2>Write a customer review</h2>
                   {errorProductReview && (
@@ -203,6 +196,18 @@ const ProductScreen = ({ history, match }) => {
                     </Message>
                   )}
                 </ListGroup.Item>
+              </ListGroup>
+            </Col>
+            <Col md={4} className="product-review-container-review">
+              <ListGroup>
+                {product.reviews.map((review) => (
+                  <ListGroup.Item key={review._id}>
+                    <strong>{review.name}</strong>
+                    <Rating value={review.rating} />
+                    <p>{review.createdAt.substring(0, 10)}</p>
+                    <p>{review.comment}</p>
+                  </ListGroup.Item>
+                ))}
               </ListGroup>
             </Col>
           </Row>

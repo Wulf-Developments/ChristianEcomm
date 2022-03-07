@@ -1,9 +1,10 @@
 import React from "react";
 import { Switch } from "react-router-dom";
+import AdminScreen from "../../Screens/Admin/AdminScreen";
 import OrderListScreen from "../../Screens/Admin/OrderListScreen";
 import PrivateRoute from "../Routing/PrivateRoute";
 
-const AdminOrderListRoutes = () => {
+const AdminOrderListRoutes = ({ match }) => {
   return (
     <>
       <Switch>
@@ -13,18 +14,27 @@ const AdminOrderListRoutes = () => {
             only ever route there, leaving you unable to get the necessary params 
         */}
         <PrivateRoute
-          path="/admin/orderlist/keyword/:keyword/page/:pageNumber"
-          component={OrderListScreen}
+          path={
+            match.url + "/:view/orderlist/keyword/:keyword/page/:pageNumber"
+          }
+          component={AdminScreen}
+          exact
         />
         <PrivateRoute
-          path="/admin/orderlist/keyword/:keyword"
-          component={OrderListScreen}
+          path={match.url + "/:view/orderlist/keyword/:keyword"}
+          component={AdminScreen}
+          exact
         />
         <PrivateRoute
-          path="/admin/orderlist/:pageNumber"
-          component={OrderListScreen}
+          path={match.url + "/:view/orderlist/:pageNumber"}
+          component={AdminScreen}
+          exact
         />
-        <PrivateRoute path="/admin/orderlist" component={OrderListScreen} />
+        <PrivateRoute
+          path={match.url + "/:view/orderlist"}
+          component={AdminScreen}
+          exact
+        />
       </Switch>
     </>
   );

@@ -111,9 +111,9 @@ const ProductEditScreen = ({ match, history }) => {
   };
 
   return (
-    <>
+    <div className="admin-container">
       <Meta title={`Product Edit: ${product.name}`} />
-      <Link to="/admin/productlist" className="btn btn-light my-3">
+      <Link to="/admin/admin-panel/products" className="btn btn-light my-3">
         Go Back
       </Link>
       <Container fluid style={{ padding: "2%" }}>
@@ -146,7 +146,7 @@ const ProductEditScreen = ({ match, history }) => {
                   onChange={(e) => setPrice(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <div>
+              <div style={{ textAlign: "center", padding: "2% 0" }}>
                 <Image src={image} fluid />
                 <Form.Group controlId="image">
                   <Form.Label>Image</Form.Label>
@@ -156,12 +156,13 @@ const ProductEditScreen = ({ match, history }) => {
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
                   ></Form.Control>
-                  <Form.File
+                  <Form.Control
+                    type="file"
                     id="image-file"
                     label="Choose File"
                     custom
                     onChange={uploadFileHandler}
-                  ></Form.File>
+                  ></Form.Control>
                   {uploading && <Loader />}
                 </Form.Group>
               </div>
@@ -214,7 +215,7 @@ const ProductEditScreen = ({ match, history }) => {
                 <Button
                   type="submit"
                   variant="primary"
-                  style={{ width: "50%" }}
+                  style={{ width: "50%", margin: "5% 0" }}
                 >
                   Update
                 </Button>
@@ -223,7 +224,7 @@ const ProductEditScreen = ({ match, history }) => {
           )}
         </FormContainer>
       </Container>
-    </>
+    </div>
   );
 };
 

@@ -69,7 +69,6 @@ userSchema.methods.getResetPasswordToken = async function () {
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
-
 // Sign JWT and return
 userSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {

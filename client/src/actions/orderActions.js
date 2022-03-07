@@ -20,6 +20,7 @@ import {
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_REQUEST,
 } from "../constants/orderConstants";
+import { setAlert } from "./alert";
 import { logout } from "./userActions";
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -142,6 +143,7 @@ export const payOrder =
         type: ORDER_PAY_FAIL,
         payload: message,
       });
+      dispatch(setAlert(message, "danger"));
     }
   };
 
@@ -225,7 +227,6 @@ export const listOrders = (keyword, pageNumber) => async (dispatch) => {
       type: ORDER_LIST_SUCCESS,
       payload: data,
     });
-    console.log(data);
   } catch (error) {
     const message =
       error.response && error.response.data.message

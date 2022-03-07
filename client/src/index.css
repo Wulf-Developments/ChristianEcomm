@@ -1,6 +1,20 @@
+@import url("bootstrap/dist/css/bootstrap.min.css");
+:root {
+  --primary: #63817c;
+  --background: #d1cdcd;
+  --secondary: #a0b5a2;
+  --trim: #3f3e40;
+  --trim-dark: #201f20;
+  --text-color: #ffffff;
+  --text-color-dark: #363333;
+}
 main {
   min-height: 90vh;
-  background-color: rgb(230, 230, 230);
+  background-color: var(--background);
+}
+.nav-link {
+  width: auto;
+  color: var(--text-color-dark);
 }
 
 h3 {
@@ -18,7 +32,19 @@ h3 {
   display: inline-block;
   z-index: 3;
 }
-
+.page-item.active .page-link {
+  background-color: var(--trim-dark);
+  border-color: var(--trim);
+  color: var(--secondary);
+}
+.list-group a {
+  text-decoration: none;
+}
+.list-group-item.active {
+  background-color: var(--primary);
+  border-color: var(--trim-dark);
+  color: var(--text-color);
+}
 h1 {
   font-size: 1.8rem;
   padding: 1rem 0;
@@ -31,45 +57,60 @@ h2 {
 .bold {
   font-weight: bold;
 }
-
-.slategray-bg {
-  background-color: rgb(99, 129, 124);
+.background-txt {
+  color: var(--background);
 }
-.slategray-txt {
-  color: rgb(99, 129, 124);
+.background-bg {
+  background-color: var(--background);
 }
-.black-bg {
-  background-color: #0c141b;
+.primary-bg {
+  background-color: var(--primary);
 }
-.black-txt {
-  color: #0c141b;
+.primary-txt {
+  color: var(--primary);
 }
-
-.darkgray-bg {
-  background-color: rgb(160, 181, 162);
+.text-color-bg {
+  background-color: var(--text-color);
 }
-.darkgray-txt {
-  color: rgb(160, 181, 162);
+.text-color-txt {
+  color: var(--text-color);
 }
-
-.darkslategray-bg {
-  background-color: rgb(63, 62, 64);
+.text-color-dark-bg {
+  background-color: var(--text-color-dark);
 }
-.darkslategray-txt {
-  color: rgb(63, 62, 64);
+.text-color-dark-txt {
+  color: var(--text-color-dark);
 }
 
-.dimgray-bg {
-  background-color: rgb(122, 98, 93);
+.secondary-bg {
+  background-color: var(--secondary);
 }
-.dimgray-txt {
-  color: rgb(122, 98, 93);
+.secondary-txt {
+  color: var(--secondary);
+}
+.trim-dark-bg {
+  background-color: var(--trim-dark);
+}
+.trim-dark-txt {
+  color: var(--trim-dark);
+}
+.trim-bg {
+  background-color: var(--trim);
+}
+.trim-txt {
+  color: var(--trim);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 780px) {
   /* utility CSS, hides content on sm screens */
   .hide-sm {
+    display: none;
+  }
+}
+
+@media (min-width: 780px) {
+  .hide-lg {
     display: none;
   }
 }

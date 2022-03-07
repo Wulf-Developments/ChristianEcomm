@@ -49,9 +49,13 @@ const ResetPassword = ({ history }) => {
         });
       }
       dispatch(setAlert(`Passwords have to match`, "danger"));
-    } catch (e) {
-      console.log(e);
-      dispatch(setAlert(`Password Reset Failed... ${e.message}`, "danger"));
+    } catch (error) {
+      console.log(error);
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch(setAlert(`Password Reset Failed... ${message}`, "danger"));
     }
   };
   return (

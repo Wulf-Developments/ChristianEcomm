@@ -24,9 +24,11 @@ import AdminOrderListRoutes from "./components/Routes/AdminOrderListRoutes";
 import AdminUserListRoutes from "./components/Routes/AdminUserListRoutes";
 import AdminProductListRoutes from "./components/Routes/AdminProductListRoutes";
 import CategoryRoutes from "./components/Routes/CategoryRoutes";
-import AdminReportRoutes from "./components/Routes/AdminReportRoutes";
+import AdminRoutes from "./components/Routes/AdminRoutes";
+import CustomProductRoutes from "./components/Routes/CustomProductRoutes";
+import CategoryScreen from "./Screens/Category/CategoryScreen";
 
-const App = () => {
+const App = ({ match }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
   if (userInfo) {
     setAuthToken(userInfo.token);
@@ -36,12 +38,13 @@ const App = () => {
       <Alert />
       <Header />
       <main className="py-3">
-        <Container>
-          <Route component={AdminOrderListRoutes} />
-          <Route component={AdminUserListRoutes} />
-          <Route component={AdminProductListRoutes} />
-          <Route component={CategoryRoutes} />
-          <Route component={AdminReportRoutes} />
+        <Container fluid>
+          <Route path="/admin/admin-panel" component={AdminOrderListRoutes} />
+          <Route path="/admin/admin-panel" component={AdminUserListRoutes} />
+          <Route path="/admin/admin-panel" component={AdminProductListRoutes} />
+          <Route path="/admin/admin-panel" component={CategoryRoutes} />
+          <Route path={"/admin"} component={AdminRoutes} />
+          {/* <Route component={CustomProductRoutes} /> */}
           <PrivateRoute path="/order/:id" component={OrderScreen} />
           <PrivateRoute path="/shipping" component={ShippingScreen} />
           <PrivateRoute path="/payment" component={PaymentScreen} />
@@ -54,6 +57,20 @@ const App = () => {
 
           <Route path="/resetpassword" component={Reset} />
           <Route path="/support" component={Support} />
+
+          <Route
+            path={"/category/:slug/keyword/:keyword/page/:pageNumber"}
+            component={CategoryScreen}
+          />
+          <Route
+            path={"/category/:slug/keyword/:keyword"}
+            component={CategoryScreen}
+          />
+          <Route
+            path={"/category/:slug/page/:pageNumber"}
+            component={CategoryScreen}
+          />
+          <Route path={"/category/:slug"} component={CategoryScreen} />
           <Route
             path="/auth/resetpassword/:resettoken"
             component={ResetPassword}

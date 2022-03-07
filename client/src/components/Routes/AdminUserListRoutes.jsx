@@ -1,24 +1,28 @@
 import React from "react";
 import { Switch } from "react-router-dom";
+import AdminScreen from "../../Screens/Admin/AdminScreen";
 import UserEditScreen from "../../Screens/Admin/UserEditScreen";
-import UserListScreen from "../../Screens/Admin/UserListScreen";
 import PrivateRoute from "../Routing/PrivateRoute";
 
-const AdminUserListRoutes = () => {
+const AdminUserListRoutes = ({ match }) => {
   return (
     <Switch>
       <PrivateRoute
-        path="/admin/userlist/search/:keyword/page/:pageNumber"
-        component={UserListScreen}
+        path={match.url + "/:view/userlist/search/:keyword/page/:pageNumber"}
+        component={AdminScreen}
         exact
       />
       <PrivateRoute
-        path="/admin/userlist/:pageNumber"
-        component={UserListScreen}
+        path={match.url + "/:view/userlist/:pageNumber"}
+        component={AdminScreen}
         exact
       />
-      <PrivateRoute path="/admin/user/:id/edit" component={UserEditScreen} />
-      <PrivateRoute path="/admin/userlist" component={UserListScreen} exact />
+      <PrivateRoute
+        path={match.url + "/:view/userlist"}
+        component={AdminScreen}
+        exact
+      />
+      <PrivateRoute path="/user/:id/edit" component={UserEditScreen} />
     </Switch>
   );
 };

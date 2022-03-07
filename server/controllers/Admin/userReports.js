@@ -10,20 +10,26 @@ export const userReports = expressAsyncHandler(async (req, res) => {
   try {
     // setup dates
     const lastMonth = new Date();
-    lastMonth.setMonth(lastMonth.getMonth() - 1);
+    // This should set the month to the month prior
+    // lastMonth.setMonth(lastMonth.getMonth() - 1);
+    lastMonth.setDate("0");
     const thisMonth = new Date();
-
-    // Query the database for results
+    // We should count all the documents that were created over the last month,
+    // this will be the total number of orders for the month prior
     const lastMonthUsers = await User.countDocuments({
-      createdAt: { $gte: lastMonth },
+      // should cut the amount of orders off at the beginning of the current month
       createdAt: { $lte: thisMonth.getMonth() + 1 },
+      createdAt: { $gte: lastMonth.getMonth() },
     });
-    console.log(thisMonth.getMonth() + 1);
-    // Query the database for results
-    // of new users
-    const newUsers = await User.countDocuments({
-      createdAt: { $gte: thisMonth.getMonth() + 1 },
-    });
+    const newUsers = await User.aggregate([
+      {
+        $match: {
+          $expr: {
+            $eq: [{ $month: "$createdAt" }, thisMonth.getMonth() + 1],
+          },
+        },
+      },
+    ]);
     // percent difference formula
     // PD = (|x - y|/((x + y)/2) * 100)
     // this will take the number of users from last month,
@@ -32,8 +38,8 @@ export const userReports = expressAsyncHandler(async (req, res) => {
     // however, its reasonable to assume that if the number of lastMonth users is greater
     // than newUsers, its a negative number.
     const percentNewUsers =
-      (Math.abs(newUsers - lastMonthUsers) /
-        ((lastMonthUsers + newUsers) / 2)) *
+      (Math.abs(newUsers.length - lastMonthUsers) /
+        ((lastMonthUsers + newUsers.length) / 2)) *
       100;
 
     // we also want to get the total amount of users
@@ -41,9 +47,11 @@ export const userReports = expressAsyncHandler(async (req, res) => {
     // Respond with results
     res.json({
       lastMonth: lastMonthUsers,
-      thisMonth: newUsers,
+      thisMonth: newUsers.length,
       percentNew:
-        newUsers > lastMonthUsers ? percentNewUsers : -percentNewUsers,
+        newUsers > lastMonthUsers
+          ? percentNewUsers.toFixed(2)
+          : -percentNewUsers.toFixed(2),
       total: total,
     });
   } catch (error) {

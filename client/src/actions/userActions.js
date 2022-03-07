@@ -314,6 +314,7 @@ export const inactive = (id, isAdmin) => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch(setAlert(`You have made this account inactive`, "success"));
+    window.location.reload();
     //Changes the localStorage information to update the name if information changes.
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
@@ -355,6 +356,7 @@ export const activate = (id) => async (dispatch, getState) => {
       payload: data,
     });
     dispatch(setAlert(`You've Reactivated account: ${id}`, "success"));
+    window.location.reload();
     //Changes the localStorage information to update the name if information changes.
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
