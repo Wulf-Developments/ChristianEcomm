@@ -4,25 +4,31 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import "./AdminNav.css";
 
-const AdminNav = () => {
+const AdminNav = ({ location }) => {
   return (
-    <Row className="admin-nav-container hide-sm">
-      <LinkContainer to="/admin/userlist">
+    <Row className="admin-nav-container hide-lg">
+      <LinkContainer to="/admin/admin-panel/users">
         <Nav.Link>Users</Nav.Link>
       </LinkContainer>
 
-      <LinkContainer to="/admin/orderlist">
+      <LinkContainer to="/admin/admin-panel/orders">
         <Nav.Link>Orders</Nav.Link>
       </LinkContainer>
 
-      <LinkContainer to="/admin/productlist">
-        <Nav.Link>Products</Nav.Link>
+      <LinkContainer to="/admin/admin-panel/products">
+        <Nav.Link
+        >
+          Products
+        </Nav.Link>
       </LinkContainer>
-      <LinkContainer to="/admin/categories">
-        <Nav.Link>Categories</Nav.Link>
+      <LinkContainer to="/admin/admin-panel/categories">
+        <Nav.Link
+        >
+          Categories
+        </Nav.Link>
       </LinkContainer>
-      <LinkContainer to="/admin/admin-panel">
-        <Nav.Link>Panel</Nav.Link>
+      <LinkContainer to="/admin/admin-panel/reports">
+        <Nav.Link>Reports</Nav.Link>
       </LinkContainer>
     </Row>
   );

@@ -3,8 +3,12 @@ import { Col, ListGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import UserListTable from "../../components/Admin/UserListTable";
+import OrderListScreen from "./OrderListScreen";
+import ProductListScreen from "./ProductListScreen";
+import CategoriesList from "./CategoriesList";
 import LogoEdit from "../../components/Forms/LogoEdit";
 import "./AdminScreen.css";
+import Reports from "../../components/Admin/Reports";
 
 const AdminScreen = ({ match, history }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -15,7 +19,6 @@ const AdminScreen = ({ match, history }) => {
   // match, it must be passed into it.
   const keyword = match.params.keyword || "";
   const pageNumber = match.params.pageNumber || 1;
-  console.log(match);
 
   useEffect(() => {
     if (!userInfo.isAdmin) {
@@ -24,27 +27,47 @@ const AdminScreen = ({ match, history }) => {
   }, [userInfo, history]);
 
   return (
-    <Row style={{ height: "100%", position: "relative" }}>
-      <Col lg={2} md={3}>
+    <Row style={{ justifyContent: "space-evenly" }}>
+      <Col lg={2} md={3} className="hide-sm">
         <ListGroup>
           <Link to="/admin/admin-panel/logo">
-            <ListGroup.Item className="rounded">Logo</ListGroup.Item>
+            <ListGroup.Item className="rounded" active={view === "logo"}>
+              Logo
+            </ListGroup.Item>
           </Link>
           <Link to="/admin/admin-panel/users">
-            <ListGroup.Item className="rounded">Users</ListGroup.Item>
+            <ListGroup.Item className="rounded" active={view === "users"}>
+              Users
+            </ListGroup.Item>
           </Link>
-          <Link to="">
-            <ListGroup.Item className="rounded">Orders</ListGroup.Item>
+          <Link to="/admin/admin-panel/orders">
+            <ListGroup.Item className="rounded" active={view === "orders"}>
+              Orders
+            </ListGroup.Item>
           </Link>
-          <Link to="">
-            <ListGroup.Item className="rounded">Products</ListGroup.Item>
+          <Link to="/admin/admin-panel/products">
+            <ListGroup.Item className="rounded" active={view === "products"}>
+              Products
+            </ListGroup.Item>
           </Link>
-          <Link to="">
-            <ListGroup.Item className="rounded">Categories</ListGroup.Item>
+          <Link to="/admin/admin-panel/categories">
+            <ListGroup.Item className="rounded" active={view === "categories"}>
+              Categories
+            </ListGroup.Item>
+          </Link>
+          <Link to="/admin/admin-panel/reports">
+            <ListGroup.Item className="rounded" active={view === "reports"}>
+              Reports
+            </ListGroup.Item>
           </Link>
         </ListGroup>
       </Col>
-      <Col className="background-bg admin-panel-right-col">
+      <Col
+        className="background-bg admin-panel-right-col"
+        lg={9}
+        md={8}
+        sm={12}
+      >
         {view === "users" && (
           <UserListTable
             keyword={keyword}
@@ -52,7 +75,29 @@ const AdminScreen = ({ match, history }) => {
             history={history}
           />
         )}
-        {view === "logo" && <LogoEdit />}
+        {view === "logo" && <LogoEdit history={history} />}
+        {view === "orders" && (
+          <OrderListScreen
+            keyword={keyword}
+            pageNumber={pageNumber}
+            history={history}
+          />
+        )}
+        {view === "products" && (
+          <ProductListScreen
+            keyword={keyword}
+            pageNumber={pageNumber}
+            history={history}
+          />
+        )}
+        {view === "categories" && (
+          <CategoriesList
+            keyword={keyword}
+            pageNumber={pageNumber}
+            history={history}
+          />
+        )}
+        {view === "reports" && <Reports />}
       </Col>
     </Row>
   );

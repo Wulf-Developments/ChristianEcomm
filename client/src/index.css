@@ -32,7 +32,19 @@ h3 {
   display: inline-block;
   z-index: 3;
 }
-
+.page-item.active .page-link {
+  background-color: var(--trim-dark);
+  border-color: var(--trim);
+  color: var(--secondary);
+}
+.list-group a {
+  text-decoration: none;
+}
+.list-group-item.active {
+  background-color: var(--primary);
+  border-color: var(--trim-dark);
+  color: var(--text-color);
+}
 h1 {
   font-size: 1.8rem;
   padding: 1rem 0;
@@ -93,6 +105,12 @@ h2 {
 @media (max-width: 780px) {
   /* utility CSS, hides content on sm screens */
   .hide-sm {
+    display: none;
+  }
+}
+
+@media (min-width: 780px) {
+  .hide-lg {
     display: none;
   }
 }

@@ -2,3 +2,7 @@
   min-height: 200px;
   max-height: 200px;
 }
+
+.product-card {
+  margin: 0 auto;
+}

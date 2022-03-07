@@ -66,7 +66,7 @@ const Reports = () => {
                         {userReport.thisMonth}
                       </h4>
                     </p>
-                    Percent Difference:{" "}
+                    <p style={{ display: "inline" }}>Percent Difference: </p>
                     <h4>
                       {userReport.percentNew > 0 ? (
                         <>
@@ -90,7 +90,7 @@ const Reports = () => {
                 </Col>
               </Row>
             </Col>
-            <Col>
+            <Col className="report-container">
               <h2 style={{ textAlign: "center" }}>Orders</h2>
               <p>
                 From:{" "}
@@ -113,7 +113,7 @@ const Reports = () => {
                       <h4>{orderReport.thisMonth}</h4>| Total:{" "}
                       <h4>{formatter.format(orderReport.totalSalesThis)}</h4>
                     </p>
-                    Percent Difference:{" "}
+                    <p style={{ display: "inline" }}>Percent Difference: </p>
                     <h4>
                       {orderReport.percentChange > 0 ? (
                         <>

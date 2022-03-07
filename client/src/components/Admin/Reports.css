@@ -1,3 +1,21 @@
+.report-container {
+  background-color: var(--text-color-dark);
+  padding: 4%;
+  margin: 3% 2%;
+  border-radius: 5%;
+}
 .report-container h4 {
   display: inline;
+  color: var(--text-color);
+}
+.report-container p {
+  color: var(--secondary);
+}
+.report-container h2 {
+  color: var(--text-color);
+}
+@media (max-width: 760px) {
+  .report-container {
+    text-align: center;
+  }
 }

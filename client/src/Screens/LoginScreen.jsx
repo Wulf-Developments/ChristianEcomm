@@ -57,9 +57,11 @@ const LoginScreen = ({ location, history }) => {
             }}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
-          Sign-In
-        </Button>
+        <div className="text-center" style={{ margin: "2% 0" }}>
+          <Button type="submit" variant="success" style={{ width: "40%" }}>
+            Sign-In
+          </Button>
+        </div>
       </Form>
       <Container style={{ paddingTop: "5%", textAlign: "center" }}>
         <Link style={{ textDecoration: "none" }} to="/resetpassword">

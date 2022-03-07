@@ -11,10 +11,8 @@ import { PRODUCT_CREATE_RESET } from "../../constants/productConstants";
 import Paginate from "../../components/Paginate";
 import Meta from "../../components/Meta";
 
-const ProductListScreen = ({ history, match }) => {
+const ProductListScreen = ({ history, keyword, pageNumber }) => {
   // pulls the pageNumber and Keyword search params
-  const keyword = match.params.keyword || "";
-  const pageNumber = match.params.pageNumber || 1;
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
@@ -42,7 +40,9 @@ const ProductListScreen = ({ history, match }) => {
     }
 
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct._id}/edit`);
+      history.push(
+        `/admin/admin-panel/products/productlist/product/${createdProduct._id}/edit`
+      );
     } else {
       dispatch(listProducts(keyword, pageNumber));
     }
@@ -71,14 +71,16 @@ const ProductListScreen = ({ history, match }) => {
     e.preventDefault();
     if (search.trim()) {
       history.push(
-        `/admin/productlist/search/${search}/page/${pageNumber || 1}`
+        `/admin/admin-panel/products/productlist/search/${search}/page/${
+          pageNumber || 1
+        }`
       );
     } else {
-      history.push("/admin/productlist");
+      history.push("/admin/admin-panel/products/productlist");
     }
   };
   return (
-    <>
+    <div className="admin-container">
       <Meta title={`Products | Page ${pageNumber}`} />
       <Row className="align-items-center">
         <Col>
@@ -141,7 +143,9 @@ const ProductListScreen = ({ history, match }) => {
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                    <LinkContainer
+                      to={`/admin/admin-panel/products/productlist/product/${product._id}/edit`}
+                    >
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
@@ -158,17 +162,16 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
-          <Row style={{ justifyContent: "center" }}>
-            <Paginate
-              pages={pages}
-              page={page}
-              isAdmin={true}
-              keyword={keyword}
-            />
-          </Row>
+
+          <Paginate
+            pages={pages}
+            page={page}
+            isAdmin={true}
+            keyword={keyword}
+          />
         </>
       )}
-    </>
+    </div>
   );
 };
 

@@ -2,13 +2,11 @@ import React from "react";
 import { Switch } from "react-router-dom";
 import AdminScreen from "../../Screens/Admin/AdminScreen";
 import UserEditScreen from "../../Screens/Admin/UserEditScreen";
-import UserListScreen from "../../Screens/Admin/UserListScreen";
-import UserListTable from "../Admin/UserListTable";
 import PrivateRoute from "../Routing/PrivateRoute";
 
 const AdminUserListRoutes = ({ match }) => {
   return (
-    <>
+    <Switch>
       <PrivateRoute
         path={match.url + "/:view/userlist/search/:keyword/page/:pageNumber"}
         component={AdminScreen}
@@ -25,7 +23,7 @@ const AdminUserListRoutes = ({ match }) => {
         exact
       />
       <PrivateRoute path="/user/:id/edit" component={UserEditScreen} />
-    </>
+    </Switch>
   );
 };
 

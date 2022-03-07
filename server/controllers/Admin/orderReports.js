@@ -65,6 +65,7 @@ export const orderReports = expressAsyncHandler(async (req, res) => {
               thisMonth.getMonth() + 1,
             ],
           },
+          isPaid: true,
         },
       },
       {

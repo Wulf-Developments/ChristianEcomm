@@ -9,7 +9,6 @@ export const getLogo = () => async (dispatch) => {
   try {
     dispatch({ type: DYNAMIC_CONTENT_REQUEST });
     const { data } = await axios.get("/api/dynamic/Logo");
-    console.log(data);
     dispatch({ type: GET_LOGO, payload: data });
   } catch (error) {
     const message =

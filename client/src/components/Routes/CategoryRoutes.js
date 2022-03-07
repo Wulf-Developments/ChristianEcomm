@@ -1,11 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import AdminScreen from "../../Screens/Admin/AdminScreen";
 import CategoriesList from "../../Screens/Admin/CategoriesList";
 import CategoryScreen from "../../Screens/Category/CategoryScreen";
 import CategoryEdit from "../Forms/CategoryEdit";
 import PrivateRoute from "../Routing/PrivateRoute";
 
-const CategoryRoutes = () => {
+const CategoryRoutes = ({ match }) => {
   return (
     <>
       <Switch>
@@ -14,27 +15,17 @@ const CategoryRoutes = () => {
           /admin/orderlist, if that route is at the top, itll match to that route, and will
           only ever route there, leaving you unable to get the necessary params 
       */}
-        <Route
-          path="/category/:slug/keyword/:keyword/page/:pageNumber"
-          component={CategoryScreen}
-        />
-        <Route
-          path="/category/:slug/keyword/:keyword"
-          component={CategoryScreen}
-        />
-        <Route
-          path="/category/:slug/page/:pageNumber"
-          component={CategoryScreen}
-        />
-        <Route path="/category/:slug" component={CategoryScreen} />
 
         {/* For Admin Stuff */}
         <PrivateRoute
-          path="/admin/categories/keyword/:keyword"
-          component={CategoriesList}
+          path={match.url + "/:view/keyword/:keyword"}
+          component={AdminScreen}
+          exact
         />
-        <PrivateRoute path="/admin/categories" component={CategoriesList} />
-        <PrivateRoute path="/admin/category/:id" component={CategoryEdit} />
+        <PrivateRoute
+          path={match.url + "/view/category/:id"}
+          component={AdminScreen}
+        />
       </Switch>
     </>
   );

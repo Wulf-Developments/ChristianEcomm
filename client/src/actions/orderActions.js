@@ -227,7 +227,6 @@ export const listOrders = (keyword, pageNumber) => async (dispatch) => {
       type: ORDER_LIST_SUCCESS,
       payload: data,
     });
-    console.log(data);
   } catch (error) {
     const message =
       error.response && error.response.data.message

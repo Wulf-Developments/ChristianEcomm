@@ -12,6 +12,7 @@ export const updateLogo = expressAsyncHandler(async (req, res) => {
     if (!logo) {
       return res.status(404).json({ message: `Could not find Logo to update` });
     }
+    console.log(req.body);
     const updatedLogo = await Dynamic.findOneAndUpdate(
       { type: "Logo" },
       req.body,

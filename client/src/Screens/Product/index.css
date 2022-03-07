@@ -4,3 +4,18 @@
 .product-image-container img {
   height: 100%;
 }
+.product-review-container-review {
+  overflow: scroll;
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .product-details-container {
+    margin: 5% 2.5%;
+    width: 90%;
+  }
+  .product-image-container {
+    text-align: center;
+    padding: 3%;
+  }
+}

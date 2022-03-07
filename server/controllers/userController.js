@@ -9,7 +9,9 @@ const authUser = asyncHandler(async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-
+    if (!user.isActive) {
+      return res.status(404).json({ message: `Account was disabled` });
+    }
     // User Auth
     if (user && (await user.matchPassword(password))) {
       res.json({
@@ -110,7 +112,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 //@route Get /api/users
 //@access Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  const pageSize = 2;
+  const pageSize = 10;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }

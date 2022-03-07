@@ -17,7 +17,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
     });
-    dispatch(`Product: ${id} was removed`, "success");
+    dispatch(setAlert(`Product: ${id} was removed`, "success"));
   } catch (error) {
     const message =
       error.response && error.response.data.message

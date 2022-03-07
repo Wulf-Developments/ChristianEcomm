@@ -10,9 +10,8 @@ import { createCategory } from "../../actions/Categories/createCategory";
 import { setAlert } from "../../actions/alert";
 import { deleteCategory } from "../../actions/Categories/deleteCategory";
 
-const CategoriesList = ({ history, match, location }) => {
+const CategoriesList = ({ history, keyword, pageNumber }) => {
   const dispatch = useDispatch();
-  const keyword = match.params.keyword || "";
 
   const { loading, error, adminCategories } = useSelector(
     (state) => state.category
@@ -20,13 +19,13 @@ const CategoriesList = ({ history, match, location }) => {
 
   const { userInfo } = useSelector((state) => state.userLogin);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const submitHandler = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      history.push(`/admin/categories/keyword/${search}`);
+      history.push(`/admin/admin-panel/categories/keyword/${search}`);
     } else {
-      history.push("/admin/categories");
+      history.push("/admin/admin-panel/categories");
     }
   };
   const createCategoryHandler = () => {
@@ -52,7 +51,7 @@ const CategoriesList = ({ history, match, location }) => {
   }, [dispatch, userInfo, history, keyword]);
 
   return (
-    <>
+    <div className="admin-container">
       <Meta title={`Categories`} />
       <Row className="align-items-center">
         <Col>
@@ -127,7 +126,7 @@ const CategoriesList = ({ history, match, location }) => {
           </tbody>
         </Table>
       )}
-    </>
+    </div>
   );
 };
 

@@ -19,7 +19,6 @@ import Loader from "../Loader";
 import Meta from "../Meta";
 
 const UserListTable = ({ keyword, pageNumber, history }) => {
-  console.log(keyword);
   const dispatch = useDispatch();
   const [search, setSearch] = useState(keyword);
 

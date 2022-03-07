@@ -14,11 +14,8 @@ import Loader from "../../components/Loader";
 import { listOrders } from "../../actions/orderActions";
 import Meta from "../../components/Meta";
 
-const OrderListScreen = ({ history, match, location }) => {
+const OrderListScreen = ({ history, keyword, pageNumber }) => {
   const dispatch = useDispatch();
-  // const { pageNumber = 1, keyword = "" } = useParams();
-  const keyword = match.params.keyword || "";
-  const pageNumber = match.params.pageNumber || 1;
 
   const { loading, error, orders, pages, page } = useSelector(
     (state) => state.orderList
@@ -34,9 +31,11 @@ const OrderListScreen = ({ history, match, location }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      history.push(`/admin/orderlist/keyword/${search}/page/1`);
+      history.push(
+        `/admin/admin-panel/orders/orderlist/keyword/${search}/page/1`
+      );
     } else {
-      history.push("/admin/orderlist");
+      history.push("/admin/admin-panel/orders/orderlist");
     }
   };
 
@@ -49,7 +48,7 @@ const OrderListScreen = ({ history, match, location }) => {
   }, [dispatch, userInfo, history, pageNumber, keyword]);
 
   return (
-    <>
+    <div className="admin-container">
       <Meta title={`Orders | Page ${pageNumber}`} />
       <h1>Orders</h1>
       <Form onSubmit={submitHandler} style={{ padding: "2%" }}>
@@ -132,9 +131,11 @@ const OrderListScreen = ({ history, match, location }) => {
                 to={
                   userInfo.isAdmin
                     ? search
-                      ? `/admin/orderlist/keyword/${search}/page/${x + 1}`
-                      : `/admin/orderlist/${x + 1}`
-                    : `/admin/orderlist/${x + 1}`
+                      ? `/admin/admin-panel/orders/orderlist/keyword/${search}/page/${
+                          x + 1
+                        }`
+                      : `/admin/admin-panel/orders/orderlist/${x + 1}`
+                    : `/admin/admin-panel/orders/orderlist/${x + 1}`
                 }
               >
                 <Pagination.Item
@@ -148,7 +149,7 @@ const OrderListScreen = ({ history, match, location }) => {
           </Pagination>
         )}
       </Row>
-    </>
+    </div>
   );
 };
 
