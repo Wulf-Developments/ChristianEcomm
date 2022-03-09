@@ -8,6 +8,9 @@
   overflow: scroll;
   height: 100%;
 }
+.product-review-container {
+  padding: 2.5%;
+}
 
 @media (max-width: 1024px) {
   .product-details-container {

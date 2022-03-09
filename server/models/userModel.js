@@ -53,6 +53,12 @@ userSchema.pre("save", async function (next) {
   const salt = await bcyrpt.genSalt(10);
   this.password = await bcyrpt.hash(this.password, salt);
 });
+// enforces that the email string be lower case throughout, as if it isnt, a user with
+// test@email.com and a user Test@email.com do not match, and you can end up with duplicate emails..
+userSchema.pre("save", async function (next) {
+  this.email = this.email.toLowerCase();
+  next();
+});
 
 // Generate and hash password token
 userSchema.methods.getResetPasswordToken = async function () {

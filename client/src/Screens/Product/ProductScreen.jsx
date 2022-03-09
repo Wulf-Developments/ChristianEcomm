@@ -151,7 +151,11 @@ const ProductScreen = ({ history, match }) => {
           </Row>
           <Row className="product-review-container">
             <h2>Reviews</h2>
-            {product.reviews.length === 0 && <Message>No Reviews</Message>}
+            {product.reviews.length === 0 && (
+              <div style={{ width: "60%" }}>
+                <Message>No Reviews</Message>
+              </div>
+            )}
 
             <Col md={8}>
               <ListGroup variant="flush">
@@ -186,9 +190,11 @@ const ProductScreen = ({ history, match }) => {
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button type="submit" variant="primary">
-                        Submit
-                      </Button>
+                      <div style={{ margin: "2% 0" }}>
+                        <Button type="submit" variant="dark">
+                          Submit
+                        </Button>
+                      </div>
                     </Form>
                   ) : (
                     <Message>
