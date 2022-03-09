@@ -27,7 +27,7 @@ const CategoryEdit = ({ match, history }) => {
   useEffect(() => {
     if (success) {
       dispatch({ type: UPDATE_CATEGORY_RESET });
-      history.push("/admin/categorylist");
+      history.push("/admin/admin-panel/categories");
     } else {
       if (!category.cat_name || category._id !== id) {
         dispatch(getCategory(id));

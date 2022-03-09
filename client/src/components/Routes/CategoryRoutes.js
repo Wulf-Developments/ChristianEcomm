@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 import AdminScreen from "../../Screens/Admin/AdminScreen";
+import CategoryEdit from "../Forms/CategoryEdit";
 import PrivateRoute from "../Routing/PrivateRoute";
 
 const CategoryRoutes = ({ match }) => {
@@ -20,8 +21,8 @@ const CategoryRoutes = ({ match }) => {
           exact
         />
         <PrivateRoute
-          path={match.url + "/view/category/:id"}
-          component={AdminScreen}
+          path={match.url + "/:view/category/:id"}
+          component={CategoryEdit}
         />
       </Switch>
     </>

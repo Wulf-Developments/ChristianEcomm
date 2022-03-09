@@ -108,7 +108,7 @@ const CategoriesList = ({ history, keyword, pageNumber }) => {
                   <td>{category.slug}</td>
                   <td>{category.user && category.user.name}</td>
                   <td>
-                    <LinkContainer to={`/admin/category/${category._id}`}>
+                    <LinkContainer to={`/admin/admin-panel/categories/category/${category._id}`}>
                       <Button variant="light" className="btn-sm">
                         Details
                       </Button>
