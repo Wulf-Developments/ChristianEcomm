@@ -5,3 +5,13 @@
 .product-card {
   margin: 0 auto;
 }
+
+.product-card a {
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .product-card {
+    width: 100%;
+  }
+}
